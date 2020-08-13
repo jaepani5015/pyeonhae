@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 
 import { Col, Row } from 'antd';
 import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
+import useWindowSize from '../hooks/useWindowSize';
 
 const Col_CU = styled(Col)`
-    background-color : #8C1480;
+    background-color : ${props => props.event === true ? '#8C1480' : '#bbc0c4'};
     color : white;
     font-weight: 500;
     text-align: center;
@@ -14,7 +15,7 @@ const Col_CU = styled(Col)`
     padding: 10px;
 `;
 const Col_GS = styled(Col)`
-    background-color : #027CFE;
+    background-color : ${props => props.event === true ? '#027CFE' : '#bbc0c4'};
     color : white;
     text-align: center;
     font-weight: 500;
@@ -23,7 +24,7 @@ const Col_GS = styled(Col)`
     padding: 10px;
 `;
 const Col_7E = styled(Col)`
-    background-color : #1B932A;
+    background-color : ${props => props.event === true ? '#1B932A' : '#bbc0c4'};
     color: white;
     text-align: center;
     font-weight: 500;
@@ -32,28 +33,62 @@ const Col_7E = styled(Col)`
     padding: 10px;
 `;
 
+const Col_Login = styled(Col).attrs(props => ({
+    offset: props.offset,
+}))`
+`;
+
+const Span_Title = styled.span`
+    font-size: 20px;
+`;
+
+const Span = styled.span`
+    font-size: 15px;
+`;
+
 const AppLayout = () => {
+    const size = useWindowSize();
+
+    const [cu, setCu] = useState(false);
+    const [gs25, setgs25] = useState(false);
+    const [_7eleven, set7eleven] = useState(false);
+
+    const onClickCu = useCallback(e => {
+        setCu(!cu);
+    }, [cu]);
+
+    const onClickGs25 = useCallback(e => {
+        setgs25(!gs25);
+    }, [gs25]);
+
+    const onClick7eleven = useCallback(e => {
+        set7eleven(!_7eleven);
+    }, [_7eleven]);
+
     return (
         <Row style={{ marginTop: 10 }}>
             <Col xs={1} md={5} />
             <Col xs={22} md={14}>
                 <Row align='bottom'>
                     <Col xs={9} md={3} style={{ fontSize: 20, fontWeight: 'bold' }}>
-                        <Link to='/' style={{ color: "black" }}>편의점 모아</Link>
+                        <Link to='/' style={{ color: "black" }}><Span_Title>편의점 모아</Span_Title></Link>
                     </Col>
-                    <Col xs={5} md={2} style={{ fontSize: 16, textAlign: "center" }}>
-                        <Link style={{ color: "black" }} to='/newProduct'>신제품</Link>
+                    <Col xs={4} md={2} style={{ fontSize: 16, textAlign: "center" }}>
+                        <Link style={{ color: "black" }} to='/'><Span>행사</Span></Link>
                     </Col>
-                    <Col xs={3} md={2} style={{ fontSize: 16, textAlign: "center" }}>
-                        <Link style={{ color: "black" }} to='/'>행사</Link>
+                    <Col xs={4} md={2} style={{ fontSize: 16, textAlign: "center" }}>
+                        <Link style={{ color: "black" }} to='/newProduct'><Span>신제품</Span></Link>
                     </Col>
+                    <Col_Login xs={4} md={2} offset={size.width < 420 ? 3 : 13} style={{ fontSize: 16, textAlign: "center" }}>
+                        <Link style={{ color: "black" }} to='/login'><Span>로그인</Span></Link>
+                    </Col_Login>
                 </Row>
 
                 {/* 편의점 선택 */}
                 <Row style={{ padding: '15px 0' }}>
-                    <Col_CU xs={4} md={3}>CU</Col_CU>
-                    <Col_GS xs={5} md={3}>GS25</Col_GS>
-                    <Col_7E xs={6} md={3}>7-eleven</Col_7E>
+                    <Col_CU xs={6} md={5} onClick={onClickCu} event={cu}>CU</Col_CU>
+                    <Col_GS xs={6} md={5} onClick={onClickGs25} event={gs25}>GS25</Col_GS>
+                    <Col_7E xs={6} md={5} onClick={onClick7eleven} event={_7eleven}>7eleven</Col_7E>
                 </Row>
             </Col>
             <Col xs={1} md={5} />

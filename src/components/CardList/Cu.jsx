@@ -1,8 +1,8 @@
 import React from 'react';
 
-import '../css/card.css';
+import '../../css/cu_card.css';
 
-const Card = () => {
+const CU = () => {
     return (
         <div id='wrap'>
             {/* 상단 로고 행사 안내 */}
@@ -25,23 +25,17 @@ const Card = () => {
             {/* 제품설명 */}
             <div className="footer">
                 <div className="desc">
-                    <div className="title">
-                        롯데푸드)요구하이 145ml
-                    </div>
-                    <div className="star">
-                        [별점]
-                    </div>
-                    <div className="price">
-                        1,000원
-                    </div>
+                    <span className="title">롯데푸드)요구하이 145ml</span>
+                    <span className="star">[별점]</span>
+                    <span className="price">1,000원</span>
                 </div>
-            </div>
 
-            <div className="comment">
-                <img src='./image/1+1_cu.png' title='댓글' />
+                <div className="comment">
+                    <img src='./image/1+1_cu.png' title='댓글' />
+                </div>
             </div>
         </div>
     );
 }
 
-export default Card;
+export default CU;
