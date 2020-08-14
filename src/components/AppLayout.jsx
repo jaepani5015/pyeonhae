@@ -1,10 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
 
 import { Col, Row } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import styled from 'styled-components';
 import useWindowSize from '../hooks/useWindowSize';
+
+import '../css/layout.css';
 
 const Col_CU = styled(Col)`
     background-color : ${props => props.event === true ? '#8C1480' : '#bbc0c4'};
@@ -66,18 +68,18 @@ const AppLayout = () => {
     }, [_7eleven]);
 
     return (
-        <Row style={{ marginTop: 10 }}>
+        <Row className="appLayout" style={{ marginTop: 10 }}>
             <Col xs={1} md={5} />
             <Col xs={22} md={14}>
                 <Row align='bottom'>
-                    <Col xs={9} md={3} style={{ fontSize: 20, fontWeight: 'bold' }}>
-                        <Link to='/' style={{ color: "black" }}><Span_Title>편의점 모아</Span_Title></Link>
+                    <Col xs={7} md={3} style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>
+                        <Link to='/' style={{ color: "black" }}><Span_Title>편할까</Span_Title></Link>
                     </Col>
                     <Col xs={4} md={2} style={{ fontSize: 16, textAlign: "center" }}>
-                        <Link style={{ color: "black" }} to='/'><Span>행사</Span></Link>
+                        <NavLink exact style={{ color: "#bbc0c4" }} to='/'><Span>행사</Span></NavLink>
                     </Col>
                     <Col xs={4} md={2} style={{ fontSize: 16, textAlign: "center" }}>
-                        <Link style={{ color: "black" }} to='/newProduct'><Span>신제품</Span></Link>
+                        <NavLink style={{ color: "#bbc0c4" }} to='/newProduct'><Span>신제품</Span></NavLink>
                     </Col>
                     <Col_Login xs={4} md={2} offset={size.width < 420 ? 3 : 13} style={{ fontSize: 16, textAlign: "center" }}>
                         <Link style={{ color: "black" }} to='/login'><Span>로그인</Span></Link>

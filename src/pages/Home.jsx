@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Index from '../components/Index';
+import Event from '../components/Event';
 
 const Home = () => {
     return (
-        <Index />
+        <Event />
     );
 }
 

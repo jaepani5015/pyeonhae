@@ -13,7 +13,7 @@ const Span = styled.span`
     color : ${props => props.event === true ? 'red' : 'black'}
 `;
 
-const Index = () => {
+const Event = () => {
     const size = useWindowSize();
 
     const [opo, setOpo] = useState(true);
@@ -118,4 +118,4 @@ const Index = () => {
     );
 }
 
-export default Index;
+export default Event;
