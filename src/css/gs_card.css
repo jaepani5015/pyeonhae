@@ -1,7 +1,7 @@
-#wrap{
-    width: 220px;
-    height: 320px;
-    border: 1px solid #8C1480;
+#wrap_gs{
+    width: 200px;
+    height: 330px;
+    border: 1px solid #027CFE;
     border-radius: 10px;
     position: relative;
 }
@@ -61,19 +61,18 @@
 }
 /* 제품정보 부모 */
 .desc{
-    width: 80%;
+    width: 90%;
     float: left;
 }
 /* 제품정보 */
 .desc > span{
     display: block;
     text-align: left;
-    margin-top: 3px;
     padding: 0px 10px;
 }
 /* 댓글링크 이미지 부모 */
 .comment{
-    width: 20%;
+    width: 10%;
     float: right;
 }
 /* 댓글링크 이미지 */
@@ -89,7 +88,7 @@
 
 
 @media screen and (max-width: 768px){
-    #wrap{
+    #wrap_gs{
         width: 165px;
         height: 270px;
     }

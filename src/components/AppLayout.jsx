@@ -6,8 +6,6 @@ import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import useWindowSize from '../hooks/useWindowSize';
 
-import Store from '../Store';
-
 import '../css/layout.css';
 
 const Row_Store = styled(Row)`

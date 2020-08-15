@@ -1,6 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
 
 import Cu from './CardList/Cu';
+import Gs from './CardList/Gs';
+import Seven from './CardList/Seven';
+
 import useWindowSize from '../hooks/useWindowSize';
 
 import { Row, Col, Menu, Dropdown, Button, Typography } from 'antd';
@@ -107,10 +110,9 @@ const Event = () => {
 
                 {/* 제품리스트 구역 */}
                 <Row style={{ backgroundColor: '', width: '100%', height: '100%', textAlign: 'center', marginTop: 20 }}>
-                    <Col xs={12} md={8}><Cu /></Col>
-                    <Col xs={12} md={8}><Cu /></Col>
-                    <Col xs={12} md={8}><Cu /></Col>
-                    <Col xs={12} md={8}><Cu /></Col>
+                    <Col xs={12} md={6}><Cu /></Col>
+                    <Col xs={12} md={6}><Gs /></Col>
+                    <Col xs={12} md={6}><Seven /></Col>
                 </Row>
             </Col>
             <Col xs={1} md={5} />

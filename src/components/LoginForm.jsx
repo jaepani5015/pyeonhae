@@ -24,6 +24,7 @@ const P = styled.p`
     color: #a0a0a0;
     margin: 0;
     padding: 0;
+    font-size: 12px;
 `;
 
 const LoginForm = () => {
@@ -35,8 +36,8 @@ const LoginForm = () => {
     return (
         <Row>
             {/* <GlobalStyle></GlobalStyle> */}
-            <Col xs={1} />
-            <Col xs={22}>
+            <Col xs={1} md={6}/>
+            <Col xs={22} md={10}>
                 <Title>
                     <Link to='/' style={{ color: '#000000' }}>편할까</Link>
                 </Title>
@@ -82,7 +83,7 @@ const LoginForm = () => {
                     </Form.Item>
                 </Form>
             </Col>
-            <Col xs={1} />
+            <Col xs={1} md={6}/>
         </Row>
     );
 }

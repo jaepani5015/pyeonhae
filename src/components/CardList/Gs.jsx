@@ -1,14 +1,14 @@
 import React from 'react';
 
-import '../../css/cu_card.css';
+import '../../css/gs_card.css';
 
-const CU = () => {
+const Gs = () => {
     return (
-        <div id='wrap'>
+        <div id='wrap_gs'>
             {/* 상단 로고 행사 안내 */}
             <div className='header'>
                 <div className='logo'>
-                    <img src='./image/logo_cu.png' title='store logo' />
+                    <img style={{ marginTop: 20 }} src='./image/logo_gs.png' title='store logo gs' />
                 </div>
                 <div className='event'>
                     <img src='./image/1+1_cu.png' title='store event' />
@@ -38,4 +38,4 @@ const CU = () => {
     );
 }
 
-export default CU;
+export default Gs;
