@@ -1,7 +1,5 @@
 import React from 'react';
 
-import '../../css/seven_card.css';
-
 const Seven = () => {
     return (
         <div id='wrap_seven'>
@@ -28,10 +26,6 @@ const Seven = () => {
                     <span className="title">롯데푸드)요구하이 145ml</span>
                     <span className="star">[별점]</span>
                     <span className="price">1,000원</span>
-                </div>
-
-                <div className="comment">
-                    <img src='./image/1+1_cu.png' title='댓글' />
                 </div>
             </div>
         </div>

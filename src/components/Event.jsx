@@ -6,33 +6,45 @@ import Seven from './CardList/Seven';
 
 import useWindowSize from '../hooks/useWindowSize';
 
-import { Row, Col, Menu, Dropdown, Button, Typography } from 'antd';
-import { UnorderedListOutlined, DownOutlined, UserSwitchOutlined } from '@ant-design/icons';
+import { Row, Col, Menu, Dropdown } from 'antd';
+import { UnorderedListOutlined, DownOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
 const Span = styled.span`
-    font-size: 20px;
-    font-weight: 700;
-    color : ${props => props.event === true ? 'red' : 'black'}
+    font-size: ${props => props.size === 'xs' ? 15 : 20}px;
+    font-weight: ${props => props.event === true ? '900' : '100'};
+    color : ${props => props.event === true ? 'red' : '#cccccc'};
 `;
 
 const Event = () => {
     const size = useWindowSize();
 
     const [opo, setOpo] = useState(true);
-    const [tpo, setTpo] = useState(false)
+    const [tpo, setTpo] = useState(false);
+    const [all, setAll] = useState(false);
     const [category, setCategory] = useState(null);
     const [order, setOrder] = useState(null)
 
     // 1+1클릭 이벤트
     const onClickOpo = useCallback(e => {
         setOpo(!opo);
-    }, [opo]);
+        setTpo(false);
+        setAll(false);
+    }, [opo, tpo, all]);
 
     // 2+1클릭 이벤트
     const onClickTpo = useCallback(e => {
         setTpo(!tpo);
-    }, [tpo]);
+        setOpo(false);
+        setAll(false);
+    }, [opo, tpo, all]);
+
+    // all클릭 이벤트
+    const onClickAll = useCallback(e => {
+        setAll(!all);
+        setOpo(false);
+        setTpo(false);
+    }, [opo, tpo, all]);
 
     // 카테고리 선택 이벤트
     const onClickCategory = useCallback(e => {
@@ -73,15 +85,18 @@ const Event = () => {
                 {/* 1+1 2+1 구역 */}
                 <Row style={{ position: 'relative' }}>
                     <Col xs={5} md={2}>
-                        <Span onClick={onClickOpo} event={opo}>1+1</Span>
+                        <Span onClick={onClickOpo} size={size.width < 420 ? 'xs' : 'md'} event={opo}>1+1</Span>
                     </Col>
                     <Col xs={5} md={2}>
-                        <Span onClick={onClickTpo} event={tpo}>2+1</Span>
+                        <Span onClick={onClickTpo} size={size.width < 420 ? 'xs' : 'md'} event={tpo}>2+1</Span>
+                    </Col>
+                    <Col xs={5} md={2}>
+                        <Span onClick={onClickAll} size={size.width < 420 ? 'xs' : 'md'} event={all}>All</Span>
                     </Col>
                     {
                         size.width < 450 ?
                             <>
-                                <Col xs={5} offset={6}>
+                                <Col xs={5}>
                                     <Dropdown overlay={categoryList} trigger={['click']}>
                                         <span>카테고리 <DownOutlined /></span>
                                     </Dropdown>
@@ -94,7 +109,7 @@ const Event = () => {
                             </>
                             :
                             <>
-                                <Col md={2} offset={16}>
+                                <Col md={2} offset={14}>
                                     <Dropdown overlay={categoryList} trigger={['click']}>
                                         <span>카테고리 <DownOutlined /></span>
                                     </Dropdown>
@@ -111,8 +126,8 @@ const Event = () => {
                 {/* 제품리스트 구역 */}
                 <Row style={{ backgroundColor: '', width: '100%', height: '100%', textAlign: 'center', marginTop: 20 }}>
                     <Col xs={12} md={6}><Cu /></Col>
-                    <Col xs={12} md={6}><Gs /></Col>
-                    <Col xs={12} md={6}><Seven /></Col>
+                    {/* <Col xs={12} md={6}><Gs /></Col> */}
+                    {/* <Col xs={12} md={6}><Seven /></Col> */}
                 </Row>
             </Col>
             <Col xs={1} md={5} />

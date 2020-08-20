@@ -9,33 +9,29 @@ import useWindowSize from '../hooks/useWindowSize';
 import '../css/layout.css';
 
 const Row_Store = styled(Row)`
-    margin-top: 10;
+    margin-top: 30px;
 `;
 const Col_CU = styled(Col)`
-    background-color : ${props => props.event === true ? '#8C1480' : '#bbc0c4'};
     color : white;
     font-weight: 500;
     text-align: center;
     border-radius: 15px;
-    padding: 10px;
+    filter: grayscale(${props => props.event === true ? 0 : 100}%);
 `;
 const Col_GS = styled(Col)`
-    background-color : ${props => props.event === true ? '#027CFE' : '#bbc0c4'};
     color : white;
     text-align: center;
     font-weight: 500;
-    margin-left : 10px;
     border-radius: 15px;
-    padding: 10px;
+    filter: grayscale(${props => props.event === true ? 0 : 100}%);
+    margin-top : 9px;
 `;
 const Col_7E = styled(Col)`
-    background-color : ${props => props.event === true ? '#1B932A' : '#bbc0c4'};
     color: white;
     text-align: center;
     font-weight: 500;
-    margin-left : 10px;
     border-radius: 15px;
-    padding: 10px;
+    filter: grayscale(${props => props.event === true ? 0 : 100}%);
 `;
 
 const Col_Login = styled(Col).attrs(props => ({
@@ -54,7 +50,7 @@ const Span = styled.span`
 const AppLayout = () => {
     const size = useWindowSize();
 
-    const [cu, setCu] = useState(false);
+    const [cu, setCu] = useState(true);
     const [gs25, setgs25] = useState(false);
     const [_7eleven, set7eleven] = useState(false);
 
@@ -98,10 +94,16 @@ const AppLayout = () => {
                 </Row>
 
                 {/* 편의점 선택 */}
-                <Row style={{ padding: '15px 0' }}>
-                    <Col_CU xs={6} md={5} onClick={onClickCu} event={cu}>CU</Col_CU>
-                    <Col_GS xs={6} md={5} onClick={onClickGs25} event={gs25}>GS25</Col_GS>
-                    <Col_7E xs={6} md={5} onClick={onClick7eleven} event={_7eleven}>7eleven</Col_7E>
+                <Row style={{ padding: '15px 0', textAlign: 'center' }}>
+                    <Col_CU xs={8} md={5} onClick={onClickCu} event={cu}>
+                        <img src='./image/logo_cu.png' width='70px' height='auto' />
+                    </Col_CU>
+                    <Col_GS xs={8} md={5} onClick={onClickGs25} event={gs25}>
+                        <img src='./image/logo_gs.png' width='70px' height='auto' />
+                    </Col_GS>
+                    <Col_7E xs={8} md={5} onClick={onClick7eleven} event={_7eleven}>
+                        <img src='./image/logo_seven.png' width='70px' height='auto' />
+                    </Col_7E>
                 </Row>
             </Col>
             <Col xs={1} md={5} />

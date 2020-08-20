@@ -34,10 +34,10 @@ const LoginForm = () => {
     }, []);
 
     return (
-        <Row>
+        <Row style={{ marginTop: 100 }}>
             {/* <GlobalStyle></GlobalStyle> */}
-            <Col xs={1} md={6}/>
-            <Col xs={22} md={10}>
+            <Col xs={1} md={7}/>
+            <Col xs={22} md={8}>
                 <Title>
                     <Link to='/' style={{ color: '#000000' }}>편할까</Link>
                 </Title>
@@ -48,10 +48,10 @@ const LoginForm = () => {
                 >
                     {/* ID */}
                     <Form.Item
-                        name="userId"
-                        rules={[{ required: true, whitespace: true, message: '아이디를 입력해 주세요' }]}
+                        name="userEmail"
+                        rules={[{ required: true, whitespace: true, message: '이메일을 입력해 주세요' }]}
                     >
-                        <Input prefix={<UserOutlined />} placeholder="아이디" style={{ borderRadius: 10 }} />
+                        <Input prefix={<UserOutlined />} placeholder="이메일" type="email" style={{ borderRadius: 10 }} />
                     </Form.Item>
 
                     {/* PASSWORD */}
@@ -83,7 +83,7 @@ const LoginForm = () => {
                     </Form.Item>
                 </Form>
             </Col>
-            <Col xs={1} md={6}/>
+            <Col xs={1} md={7}/>
         </Row>
     );
 }

@@ -1,40 +1,53 @@
 import React from 'react';
 
-import '../../css/cu_card.css';
+// import '../../css/cu_card.css';
+
+import {
+    Div_wrap,
+    Header,
+    Logo,
+    LogoImg,
+    Event,
+    EventImg,
+    EventSpan,
+    Content,
+    Product,
+    ProductImg,
+    Footer,
+    FooterTitle,
+    FooterStar,
+    FooterPrice,
+} from './Styeld';
 
 const Cu = () => {
     return (
-        <div id='wrap_cu'>
+        <Div_wrap>
             {/* 상단 로고 행사 안내 */}
-            <div className='header'>
-                <div className='logo'>
-                    <img src='./image/logo_cu.png' title='store logo cu' />
-                </div>
-                <div className='event'>
-                    <img src='./image/1+1_cu.png' title='store event' />
-                </div>
-            </div>
+            <Header>
+                <Logo>
+                    <LogoImg src='./image/logo_cu.png' title='store logo cu' />
+                </Logo>
+                <Event>
+                    <EventImg>
+                        <EventSpan>1+1</EventSpan>
+                    </EventImg>
+                </Event>
+            </Header>
 
             {/* 제품 */}
-            <div className="content">
-                <div className="product">
-                    <img src='./image/cu_product.jpg' title='store product image' />
-                </div>
-            </div>
+            <Content>
+                <Product>
+                    <ProductImg src='./image/cu_product.jpg' title='store product image' />
+                </Product>
+            </Content>
 
             {/* 제품설명 */}
-            <div className="footer">
-                <div className="desc">
-                    <span className="title">롯데푸드)요구하이 145ml</span>
-                    <span className="star">[별점]</span>
-                    <span className="price">1,000원</span>
-                </div>
-
-                <div className="comment">
-                    <img src='./image/1+1_cu.png' title='댓글' />
-                </div>
-            </div>
-        </div>
+            <Footer>
+                <FooterTitle>롯데푸드)요구하이 145ml</FooterTitle>
+                <FooterStar>[별점]</FooterStar>
+                <FooterPrice>1,000원</FooterPrice>
+            </Footer>
+        </Div_wrap>
     );
 }
 
