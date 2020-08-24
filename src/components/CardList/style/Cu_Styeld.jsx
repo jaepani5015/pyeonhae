@@ -71,10 +71,10 @@ export const Content = styled.div`
 `;
 
 export const ProductImg = styled.img`
-    width: 90px;
+    width: 90px;   
     height: auto;
     position: relative;
-    left: 30px;
+    left: 55px;
     top: 6px;
 
     @media only screen and (max-width: 768px) {
@@ -111,6 +111,7 @@ export const FooterStar = styled.span`
     margin-left: 7px;
     font-size: 15px;
     text-align: left;
+    color: #000000;
 
     @media only screen and (max-width: 768px) {
         font-size: 13px;
@@ -124,6 +125,7 @@ export const FooterPrice = styled.span`
     margin-left: 7px;
     font-size: 15px;
     text-align: left;
+    color: #000000;
 
     @media only screen and (max-width: 768px) {
         font-size: 13px;

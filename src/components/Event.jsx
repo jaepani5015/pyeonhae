@@ -1,20 +1,16 @@
 import React, { useState, useCallback, useEffect } from 'react';
 
-import Cu from './CardList/Cu';
-import Gs from './CardList/Gs';
-import Seven from './CardList/Seven';
+import Cu from './cardList/Cu';
+import Gs from './cardList/Gs';
+import Seven from './cardList/Seven';
 
 import useWindowSize from '../hooks/useWindowSize';
 
 import { Row, Col, Menu, Dropdown } from 'antd';
 import { UnorderedListOutlined, DownOutlined } from '@ant-design/icons';
-import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-const Span = styled.span`
-    font-size: ${props => props.size === 'xs' ? 15 : 20}px;
-    font-weight: ${props => props.event === true ? '900' : '100'};
-    color : ${props => props.event === true ? 'red' : '#cccccc'};
-`;
+import { Span } from './Event_Styled';
 
 const Event = () => {
     const size = useWindowSize();
@@ -125,9 +121,23 @@ const Event = () => {
 
                 {/* 제품리스트 구역 */}
                 <Row style={{ width: '100%', height: '100%', marginTop: 10 }}>
-                    <Col xs={12} md={6}><Cu /></Col>
-                    <Col xs={12} md={6}><Gs /></Col>
-                    <Col xs={12} md={6}><Seven /></Col>
+                    <Col xs={12} md={6}>
+                        <Link to={`/detailProduct/${1}`}>
+                            <Cu />
+                        </Link>
+                    </Col>
+
+                    <Col xs={12} md={6}>
+                        <Link to={`/detailProduct/${2}`}>
+                            <Gs />
+                        </Link>
+                    </Col>
+
+                    <Col xs={12} md={6}>
+                        <Link to={`/detailProduct/${3}`}>
+                            <Seven />
+                        </Link>
+                    </Col>
                 </Row>
             </Col>
             <Col xs={1} md={5} />

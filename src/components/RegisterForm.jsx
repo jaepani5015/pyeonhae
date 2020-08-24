@@ -5,22 +5,7 @@ import { UserOutlined, LockOutlined, EyeOutlined } from '@ant-design/icons';
 
 import { Link } from 'react-router-dom';
 
-import styled from 'styled-components';
-
-const Title = styled.p`
-    margin: 0;
-    padding: 0;
-    color: #000000;
-    text-align: center;
-    font-size: 30px;
-    margin-top: 70px;
-`;
-
-const SubTitle = styled.p`
-    color: #a0a0a0;
-    text-align: center;
-    font-size: 13px;
-`
+import { Title } from './RegisterForm_Styled';
 
 const RegisterForm = () => {
 
@@ -125,4 +110,4 @@ const RegisterForm = () => {
     );
 }
 
-export default RegisterForm;
+export default RegisterForm; 

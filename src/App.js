@@ -5,10 +5,11 @@ import Home from './pages/Home';
 import NewProduct from './pages/NewProduct';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import DetailProduct from './pages/DetailProduct';
 
 import { Switch, Route } from 'react-router-dom';
 
-import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
+import 'antd/dist/antd.css';
 import './css/reset.css';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Route exact path='/newProduct'><AppLayout /><NewProduct /></Route>
       <Route exact path='/login'><Login /></Route>
       <Route exact path='/register'><Register /></Route>
+      <Route exact path='/detailProduct/:id'><AppLayout /><DetailProduct /></Route>
     </Switch>
   );
 }

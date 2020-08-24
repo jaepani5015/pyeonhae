@@ -9,7 +9,6 @@ import {
     EventImg,
     EventSpan,
     Content,
-    Product,
     ProductImg,
     Footer,
     FooterTitle,

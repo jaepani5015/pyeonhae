@@ -3,29 +3,12 @@ import React, { useCallback } from 'react';
 import { Row, Col, Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 
-const Title = styled.p`
-    margin: 0;
-    padding: 0;
-    color: #000000;
-    text-align: center;
-    font-size: 30px;
-    margin-top: 70px;
-`;
-
-const SubTitle = styled.p`
-    color: #a0a0a0;
-    text-align: center;
-    font-size: 13px;
-`
-
-const P = styled.p`
-    color: #a0a0a0;
-    margin: 0;
-    padding: 0;
-    font-size: 12px;
-`;
+import {
+    Title,
+    SubTitle,
+    P,
+} from './LoginForm_Styled';
 
 const LoginForm = () => {
     const onFinish = useCallback(e => {
