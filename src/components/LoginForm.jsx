@@ -8,7 +8,7 @@ import {
     Title,
     SubTitle,
     P,
-} from './LoginForm_Styled';
+} from './style/LoginForm_Styled';
 
 const LoginForm = () => {
     const onFinish = useCallback(e => {

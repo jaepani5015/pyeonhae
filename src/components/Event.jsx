@@ -10,7 +10,7 @@ import { Row, Col, Menu, Dropdown } from 'antd';
 import { UnorderedListOutlined, DownOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
-import { Span } from './Event_Styled';
+import { Span } from './style/Event_Styled';
 
 const Event = () => {
     const size = useWindowSize();

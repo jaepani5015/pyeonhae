@@ -15,7 +15,7 @@ import {
     Col_Login,
     Span_Title,
     Span
-} from './AppLayout_Styeld';
+} from './style/AppLayout_Styeld';
 
 const AppLayout = () => {
     const size = useWindowSize();

@@ -5,7 +5,7 @@ import { UserOutlined, LockOutlined, EyeOutlined } from '@ant-design/icons';
 
 import { Link } from 'react-router-dom';
 
-import { Title } from './RegisterForm_Styled';
+import { Title } from './style/RegisterForm_Styled';
 
 const RegisterForm = () => {
 
