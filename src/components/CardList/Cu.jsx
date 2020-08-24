@@ -1,7 +1,5 @@
 import React from 'react';
 
-// import '../../css/cu_card.css';
-
 import {
     Div_wrap,
     Header,
@@ -17,7 +15,7 @@ import {
     FooterTitle,
     FooterStar,
     FooterPrice,
-} from './Styeld';
+} from './style/Cu_Styeld';
 
 const Cu = () => {
     return (
@@ -25,7 +23,7 @@ const Cu = () => {
             {/* 상단 로고 행사 안내 */}
             <Header>
                 <Logo>
-                    <LogoImg src='./image/logo_cu.png' title='store logo cu' />
+                    <LogoImg src='./image/logo/logo_cu.png' title='store logo cu' />
                 </Logo>
                 <Event>
                     <EventImg>
@@ -36,9 +34,7 @@ const Cu = () => {
 
             {/* 제품 */}
             <Content>
-                <Product>
-                    <ProductImg src='./image/cu_product.jpg' title='store product image' />
-                </Product>
+                <ProductImg src='./image/cu_product.jpg' title='store product image' />
             </Content>
 
             {/* 제품설명 */}

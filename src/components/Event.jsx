@@ -96,12 +96,12 @@ const Event = () => {
                     {
                         size.width < 450 ?
                             <>
-                                <Col xs={5}>
+                                <Col xs={6}>
                                     <Dropdown overlay={categoryList} trigger={['click']}>
                                         <span>카테고리 <DownOutlined /></span>
                                     </Dropdown>
                                 </Col>
-                                <Col xs={2}>
+                                <Col xs={3}>
                                     <Dropdown overlay={orderList} trigger={['click']}>
                                         <UnorderedListOutlined />
                                     </Dropdown>
@@ -124,13 +124,15 @@ const Event = () => {
                 </Row>
 
                 {/* 제품리스트 구역 */}
-                <Row style={{ backgroundColor: '', width: '100%', height: '100%', textAlign: 'center', marginTop: 20 }}>
+                <Row style={{ width: '100%', height: '100%', marginTop: 10 }}>
                     <Col xs={12} md={6}><Cu /></Col>
-                    {/* <Col xs={12} md={6}><Gs /></Col> */}
-                    {/* <Col xs={12} md={6}><Seven /></Col> */}
+                    <Col xs={12} md={6}><Gs /></Col>
+                    <Col xs={12} md={6}><Seven /></Col>
                 </Row>
             </Col>
             <Col xs={1} md={5} />
+
+            
         </Row>
     );
 }

@@ -96,13 +96,13 @@ const AppLayout = () => {
                 {/* 편의점 선택 */}
                 <Row style={{ padding: '15px 0', textAlign: 'center' }}>
                     <Col_CU xs={8} md={5} onClick={onClickCu} event={cu}>
-                        <img src='./image/logo_cu.png' width='70px' height='auto' />
+                        <img src='./image/logo/logo_cu.png' width='70px' height='auto' />
                     </Col_CU>
                     <Col_GS xs={8} md={5} onClick={onClickGs25} event={gs25}>
-                        <img src='./image/logo_gs.png' width='70px' height='auto' />
+                        <img src='./image/logo/logo_gs.png' width='70px' height='auto' />
                     </Col_GS>
                     <Col_7E xs={8} md={5} onClick={onClick7eleven} event={_7eleven}>
-                        <img src='./image/logo_seven.png' width='70px' height='auto' />
+                        <img src='./image/logo/logo_seven.png' width='70px' height='auto' />
                     </Col_7E>
                 </Row>
             </Col>

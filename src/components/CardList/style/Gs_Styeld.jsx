@@ -3,23 +3,33 @@ import styled from 'styled-components';
 export const Div_wrap = styled.div`
     width: 200px;
     height: 330px;
-    border: 1px solid #8C1480;
+    border: 2px solid #027CFE;
     border-radius: 10px;
+
+    @media only screen and (max-width: 768px) {
+        width: 170px;
+        height: 310px;
+    }
 `;
 
 export const Header = styled.div`
     width: 100%;
     height: 45px;
+    position: relative;
 `;
 
 export const Logo = styled.div`
     float: left;
-    padding: 5px;
+    padding: 8px;
 `;
 
 export const LogoImg = styled.img`
     width: 60px;
     height: auto;
+
+    @media only screen and (max-width: 768px) {
+        width: 50px;
+    }
 `;
 
 export const Event = styled.div`
@@ -32,7 +42,11 @@ export const EventImg = styled.div`
     height:0;
     border-width:25px 20px 20px 20px;
     border-style:solid;
-    border-color:#8C1480 #8C1480 transparent #8C1480;
+    border-color:#027CFE #027CFE transparent #027CFE;
+
+    @media only screen and (max-width: 768px) {
+        border-width: 22px 17px 17px 17px;
+    }
 `;
 
 export const EventSpan = styled.span`
@@ -40,26 +54,35 @@ export const EventSpan = styled.span`
     position: relative;
     top: -20px;
     right: 12px;
+
+    @media only screen and (max-width: 768px) {
+        font-size: 13px;
+        left: -11px;
+    }
 `;
 
 export const Content = styled.div`
     width: 100%;
     height: 190px;
-    position: relative;
-    top: 6px;
-`;
 
-export const Product = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @media only screen and (max-width: 768px) {
+        height: 177px;
+    }
 `;
 
 export const ProductImg = styled.img`
-    width: 100px;
+    width: 90px;
     height: auto;
-`;
+    position: relative;
+    left: 30px;
+    top: 6px;
 
+    @media only screen and (max-width: 768px) {
+        width: 80px;
+        left: 45px;
+        top: 10px;
+    }
+`;
 export const Footer = styled.div`
     width: 100%;
     height: 85px;
@@ -69,24 +92,39 @@ export const FooterTitle = styled.span`
     display: block;
     text-align: left;
     padding: 2px;
+    margin-left: 7px;
     font-size: 15px;
-    text-align: center;
+    text-align: left;
     font-weight: 900;
     color: #000000;
+
+    @media only screen and (max-width: 768px) {
+        font-size: 13px;
+    }
 `;
 
 export const FooterStar = styled.span`
     display: block;
     text-align: left;
     padding: 2px;
+    margin-left: 7px;
     font-size: 15px;
-    text-align: center;
+    text-align: left;
+
+    @media only screen and (max-width: 768px) {
+        font-size: 13px;
+    }
 `;
 
 export const FooterPrice = styled.span`
     display: block;
     text-align: left;
     padding: 2px;
+    margin-left: 7px;
     font-size: 15px;
-    text-align: center;
+    text-align: left;
+
+    @media only screen and (max-width: 768px) {
+        font-size: 13px;
+    }
 `;
