@@ -3,7 +3,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { Col, Row } from 'antd';
 import { Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { loginAction, logoutAction } from '../modules/login';
+import { loginAction, logoutAction } from '../modules/user';
 
 import useWindowSize from '../hooks/useWindowSize';
 
@@ -21,16 +21,12 @@ import {
 const AppLayout = () => {
     // 리덕스 start
     const { isLoggedIn } = useSelector(state => ({
-        isLoggedIn: state.login.isLoggedIn,
+        isLoggedIn: state.user.isLoggedIn,
     }));
 
     const dispatch = useDispatch();
     const onClickLogout = useCallback(e => {
         dispatch(logoutAction());
-    }, []);
-    
-    const onClickLogin = useCallback(e => {
-        dispatch(loginAction());
     }, []);
     // 리덕스 end
 

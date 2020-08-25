@@ -4,7 +4,7 @@ import { Row, Col, Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { loginAction } from '../modules/login';
+import { loginAction } from '../modules/user';
 
 import {
     Title,

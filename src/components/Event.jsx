@@ -138,11 +138,97 @@ const Event = () => {
                             <Seven />
                         </Link>
                     </Col>
+                    <Col xs={12} md={6}>
+                        <Link to={`/detailProduct/${1}`}>
+                            <Cu />
+                        </Link>
+                    </Col>
+
+                    <Col xs={12} md={6}>
+                        <Link to={`/detailProduct/${2}`}>
+                            <Gs />
+                        </Link>
+                    </Col>
+
+                    <Col xs={12} md={6}>
+                        <Link to={`/detailProduct/${3}`}>
+                            <Seven />
+                        </Link>
+                    </Col>
+                    <Col xs={12} md={6}>
+                        <Link to={`/detailProduct/${1}`}>
+                            <Cu />
+                        </Link>
+                    </Col>
+
+                    <Col xs={12} md={6}>
+                        <Link to={`/detailProduct/${2}`}>
+                            <Gs />
+                        </Link>
+                    </Col>
+
+                    <Col xs={12} md={6}>
+                        <Link to={`/detailProduct/${3}`}>
+                            <Seven />
+                        </Link>
+                    </Col>
+                    <Col xs={12} md={6}>
+                        <Link to={`/detailProduct/${1}`}>
+                            <Cu />
+                        </Link>
+                    </Col>
+
+                    <Col xs={12} md={6}>
+                        <Link to={`/detailProduct/${2}`}>
+                            <Gs />
+                        </Link>
+                    </Col>
+
+                    <Col xs={12} md={6}>
+                        <Link to={`/detailProduct/${3}`}>
+                            <Seven />
+                        </Link>
+                    </Col>
+                    <Col xs={12} md={6}>
+                        <Link to={`/detailProduct/${1}`}>
+                            <Cu />
+                        </Link>
+                    </Col>
+
+                    <Col xs={12} md={6}>
+                        <Link to={`/detailProduct/${2}`}>
+                            <Gs />
+                        </Link>
+                    </Col>
+
+                    <Col xs={12} md={6}>
+                        <Link to={`/detailProduct/${3}`}>
+                            <Seven />
+                        </Link>
+                    </Col>
+                    <Col xs={12} md={6}>
+                        <Link to={`/detailProduct/${1}`}>
+                            <Cu />
+                        </Link>
+                    </Col>
+
+                    <Col xs={12} md={6}>
+                        <Link to={`/detailProduct/${2}`}>
+                            <Gs />
+                        </Link>
+                    </Col>
+
+                    <Col xs={12} md={6}>
+                        <Link to={`/detailProduct/${3}`}>
+                            <Seven />
+                        </Link>
+                    </Col>
+
                 </Row>
             </Col>
             <Col xs={1} md={5} />
 
-            
+
         </Row>
     );
 }
