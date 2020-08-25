@@ -1,12 +1,13 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 
 import { Col, Row } from 'antd';
 import { Link, NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { loginAction, logoutAction } from '../modules/login';
 
 import useWindowSize from '../hooks/useWindowSize';
 
 import '../css/layout.css';
-
 import {
     Row_Store,
     Col_CU,
@@ -18,6 +19,21 @@ import {
 } from './style/AppLayout_Styeld';
 
 const AppLayout = () => {
+    // 리덕스 start
+    const { isLoggedIn } = useSelector(state => ({
+        isLoggedIn: state.login.isLoggedIn,
+    }));
+
+    const dispatch = useDispatch();
+    const onClickLogout = useCallback(e => {
+        dispatch(logoutAction());
+    }, []);
+    
+    const onClickLogin = useCallback(e => {
+        dispatch(loginAction());
+    }, []);
+    // 리덕스 end
+
     const size = useWindowSize();
 
     const [cu, setCu] = useState(true);
@@ -35,6 +51,10 @@ const AppLayout = () => {
     const onClick7eleven = useCallback(e => {
         set7eleven(!_7eleven);
     }, [_7eleven]);
+
+    useEffect(e => {
+        console.log('isLoggedIn: ', isLoggedIn);
+    }, []);
 
     return (
         <Row_Store className="appLayout">
@@ -57,9 +77,14 @@ const AppLayout = () => {
                         </NavLink>
                     </Col>
                     <Col_Login xs={4} md={2} offset={size.width < 420 ? 3 : 13} style={{ fontSize: 16, textAlign: "center" }}>
-                        <Link style={{ color: "black" }} to='/login'>
-                            <Span>로그인</Span>
-                        </Link>
+                        {
+                            isLoggedIn === false ?
+                                <Link style={{ color: "black" }} to='/login'>
+                                    <Span>로그인</Span>
+                                </Link>
+                                :
+                                <Span onClick={onClickLogout}>로그아웃</Span>
+                        }
                     </Col_Login>
                 </Row>
 

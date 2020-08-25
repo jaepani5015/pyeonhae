@@ -15,11 +15,28 @@ import './css/reset.css';
 function App() {
   return (
     <Switch>
-      <Route exact path='/'><AppLayout /><Home /></Route>
-      <Route exact path='/newProduct'><AppLayout /><NewProduct /></Route>
-      <Route exact path='/login'><Login /></Route>
-      <Route exact path='/register'><Register /></Route>
-      <Route exact path='/detailProduct/:id'><AppLayout /><DetailProduct /></Route>
+      <Route exact path='/'>
+        <AppLayout />
+        <Home />
+      </Route>
+
+      <Route exact path='/newProduct'>
+        <AppLayout />
+        <NewProduct />
+      </Route>
+
+      <Route exact path='/login'>
+        <Login />
+      </Route>
+
+      <Route exact path='/register'>
+        <Register />
+      </Route>
+
+      <Route exact path='/detailProduct/:id'>
+        <AppLayout />
+        <DetailProduct />
+      </Route>
     </Switch>
   );
 }

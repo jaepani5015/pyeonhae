@@ -3,6 +3,8 @@ import React, { useCallback } from 'react';
 import { Row, Col, Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginAction } from '../modules/login';
 
 import {
     Title,
@@ -11,20 +13,25 @@ import {
 } from './style/LoginForm_Styled';
 
 const LoginForm = () => {
+    // 리덕스 start
+    const dispatch = useDispatch();
+    // 리덕스 end
+
     const onFinish = useCallback(e => {
         console.log('you onFinish');
         console.log(e);
+
+        dispatch(loginAction(e.userEmail, e.userPassword));
     }, []);
 
     return (
         <Row style={{ marginTop: 100 }}>
-            {/* <GlobalStyle></GlobalStyle> */}
             <Col xs={1} md={7}/>
             <Col xs={22} md={8}>
                 <Title>
-                    <Link to='/' style={{ color: '#000000' }}>편할까</Link>
+                    <Link to='/' style={{ color: '#000000' }}>편해</Link>
                 </Title>
-                <SubTitle>편의점 할인을 까보다</SubTitle>
+                <SubTitle>편의점을 해석하다</SubTitle>
                 <Form
                     name="login_form"
                     onFinish={onFinish}
