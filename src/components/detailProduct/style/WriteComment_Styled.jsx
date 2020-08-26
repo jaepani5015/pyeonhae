@@ -1,21 +1,29 @@
 import styled from 'styled-components';
 
-export const Input = styled.input`
-    width: 100%;
-    height: 50px;
+export const TextArea = styled.textarea`
+    width: 90%;
+    height: 70px;
     padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #000;
+    border-radius: 5px;
+    border: 0.1px solid #000;
+    resize: none;
+    overflow: scroll;
+
+    @media only screen and (max-width: 768px) {
+        width: 80%;
+    }
 `;
 
 export const InputBtn = styled.input`
     width: 10%;
-    height: 35px;
-    margin-top: 10px;
-    border-radius: 10px;
+    height: 70px;
     float: right;
     background-color: #fff;
     border: none;
+
+    @media only screen and (max-width: 768px) {
+        width: 20%;
+    }
 
     &:focus {
         outline: 0;

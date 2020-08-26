@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 
 import {
-    Input,
+    TextArea,
     InputBtn,
 } from './style/WriteComment_Styled';
 
@@ -21,10 +21,10 @@ const WriteComment = () => {
     }, [comment])
 
     return(
-        <>
-            <Input type='text' onChange={onChangeComment} />
+        <form>
+            <TextArea onChange={onChangeComment} />
             <InputBtn type='button' value="댓글등록" onClick={onClickSubmit} />
-        </>
+        </form>
     );
 }
 

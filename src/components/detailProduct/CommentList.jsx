@@ -17,19 +17,6 @@ const CommnentList = () => {
                 hellohellohellohellohellohellohellohello
                 hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
                 hellohellohellohellohellohellohellohello
-                hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
-                hellohellohellohellohellohellohellohello
-                hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
-                hellohellohellohellohellohellohellohello
-                hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
-                hellohellohellohellohellohellohellohello
-                hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
-                hellohellohellohellohellohellohellohello
-                hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
-                hellohellohellohellohellohellohellohello
-                hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
-                hellohellohellohellohellohellohellohello
-                hellohellohellohellohellohellohellohello
             </UserComment>
             <Hr />
         </>

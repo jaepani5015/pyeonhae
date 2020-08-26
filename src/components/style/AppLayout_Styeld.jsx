@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import { Col, Row } from 'antd';
 
 export const Row_Store = styled(Row)`
-    margin-top: 30px;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 2;
+    padding: 20px 0 0 0;
 `;
 export const Col_CU = styled(Col)`
     color : white;

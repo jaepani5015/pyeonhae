@@ -3,7 +3,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { Col, Row } from 'antd';
 import { Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { loginAction, logoutAction } from '../modules/user';
+import { logoutAction } from '../modules/user';
 
 import useWindowSize from '../hooks/useWindowSize';
 
@@ -85,7 +85,7 @@ const AppLayout = () => {
                 </Row>
 
                 {/* 편의점 선택 */}
-                <Row style={{ padding: '15px 0', textAlign: 'center' }}>
+                <Row style={{ padding: '10px 0', textAlign: 'center' }}>
                     <Col_CU xs={8} md={8} onClick={onClickCu} event={cu}>
                         <img src='./image/logo/logo_cu.png' width='70px' height='auto' />
                     </Col_CU>

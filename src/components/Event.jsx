@@ -62,6 +62,8 @@ const Event = () => {
             <Menu.Item key="showAll">전체보기</Menu.Item>
             <Menu.Item key="drink">음료</Menu.Item>
             <Menu.Item key="snack">과자</Menu.Item>
+            <Menu.Item key="food">식품</Menu.Item>
+            <Menu.Item key="icecream">아이스크림</Menu.Item>
         </Menu>
     );
 
