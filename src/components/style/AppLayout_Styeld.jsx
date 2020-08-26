@@ -37,6 +37,40 @@ export const Col_Login = styled(Col).attrs(props => ({
 }))`
 `;
 
+export const MenuWrap = styled.div`
+    display : ${props => props.state === true ? 
+        props.size < 400 ? 'block' : 'none' : 'none'};
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    position: relative;
+    top: 10px;
+`;
+
+export const Ul = styled.ul`
+    padding: 0;
+    margin: 0;
+`;
+
+export const Li = styled.li`
+    text-align: center;
+    list-style: none;
+`;
+
+export const LiContent = styled.div`
+    font-size: 16px;
+    padding: 10px 0;
+`;
+
+export const SaleTitle = styled.div`
+    text-align: center;
+    font-size: 20px;
+    font-wight: 900;
+    color: #000;
+    padding: 15px 0;
+    background-color: #f2f2f2;
+`;
+
 export const Span_Title = styled.span`
     font-size: 20px;
 `;

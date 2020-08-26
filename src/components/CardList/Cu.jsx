@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Star from 'react-rating-stars-component'; 
+
 import {
     Div_wrap,
     Header,
@@ -12,7 +14,7 @@ import {
     ProductImg,
     Footer,
     FooterTitle,
-    FooterStar,
+    StarWrap,
     FooterPrice,
 } from './style/Cu_Styeld';
 
@@ -39,7 +41,9 @@ const Cu = () => {
             {/* 제품설명 */}
             <Footer>
                 <FooterTitle>롯데푸드)요구하이 145ml</FooterTitle>
-                <FooterStar>[별점]</FooterStar>
+                <StarWrap>
+                    <Star value={3.5} size={17} isHalf={true} edit={false} />
+                </StarWrap>
                 <FooterPrice>1,000원</FooterPrice>
             </Footer>
         </Div_wrap>

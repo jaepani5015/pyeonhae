@@ -5,6 +5,18 @@ export const Div_wrap = styled.div`
     height: auto;
 `;
 
+export const BackBtn = styled.div`
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 1;
+    padding: 30px 0;
+
+    @media only screen and (max-width: 768px) {
+        padding: 30px 10px;
+    }
+`;
+
 export const MainImg_wrap = styled.div`
     width: 100%;
     height: auto;
@@ -25,17 +37,10 @@ export const Title = styled.div`
     font-size: 30px;
     font-weight: 900;
     color: #000;
+    // text-shadow: 0px 3px 3px #eaeaea;
 
     @media only screen and (max-width: 768px) {
         font-size: 15px;
-    }
-`;
-
-export const Star = styled.div`
-    font-size: 20px;
-
-    @media only screen and (max-width: 768px) {
-        font-size: 13px;
     }
 `;
 
@@ -80,7 +85,7 @@ export const Span = styled.span`
 
     @media only screen and (max-width: 768px) {
         font-size: 20px;
-        margin: 10px 0 20px 0;
+        margin: 40px 0 25px 0;
     }
 `;
 

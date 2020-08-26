@@ -5,6 +5,7 @@ export const Div_wrap = styled.div`
     height: 330px;
     border: 2px solid #027CFE;
     border-radius: 10px;
+    box-shadow: 5px 5px 5px #eaeaea;
 
     @media only screen and (max-width: 768px) {
         width: 170px;
@@ -103,18 +104,12 @@ export const FooterTitle = styled.span`
     }
 `;
 
-export const FooterStar = styled.span`
+export const StarWrap = styled.span`
     display: block;
     text-align: left;
     padding: 2px;
     margin-left: 7px;
-    font-size: 15px;
     text-align: left;
-    color: #000000;
-
-    @media only screen and (max-width: 768px) {
-        font-size: 13px;
-    }
 `;
 
 export const FooterPrice = styled.span`
