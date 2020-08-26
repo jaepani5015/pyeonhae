@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logoutAction } from '../modules/user';
 
 import useWindowSize from '../hooks/useWindowSize';
+import Barcode from 'react-barcode';
 
 import { MenuOutlined } from '@ant-design/icons';
 
@@ -20,6 +21,12 @@ import {
     Ul,
     Li,
     LiContent,
+    SKTBarcodeWrap,
+    KTBarcodeWrap,
+    LGUBarcodeWrap,
+    InputBarcode,
+    SaveBarcode,
+    BarcodeDelete,
     SaleTitle,
     Span_Title,
     Span
@@ -43,6 +50,13 @@ const AppLayout = () => {
     const [gs25, setgs25] = useState(false);
     const [_7eleven, set7eleven] = useState(false);
     const [menu, setMenu] = useState(false);
+    const [sktWrap, setSktWrap] = useState(false);
+    const [ktWrap, setKtWrap] = useState(false);
+    const [lguWrap, setLguWrap] = useState(false);
+    const [skt, setSkt] = useState(null);
+    const [kt, setKt] = useState(null);
+    const [lgu, setLgu] = useState(null);
+    const [barcode, setBarcode] = useState(null);
 
     const onClickCu = useCallback(e => {
         setCu(!cu);
@@ -59,9 +73,49 @@ const AppLayout = () => {
     const onClickMenu = useCallback(e => {
         setMenu(!menu);
     }, [menu]);
-    useEffect(e => {
+
+    const onClickSKT = useCallback(e => {
+        setSktWrap(!sktWrap);
+    }, [sktWrap]);
+
+    const onClickKT = useCallback(e => {
+        setKtWrap(!ktWrap);
+    }, [ktWrap]);
+
+    const onClickLGU = useCallback(e => {
+        setLguWrap(!lguWrap);
+    }, [lguWrap]);
+
+    const onChangeBarcode = useCallback(e => {
+        setBarcode(e.target.value);
+    }, [barcode]);
+
+    const onClickSaveBarcode = useCallback(e => {
+        localStorage.setItem(e.target.name, barcode);
+        e.target.name === 'skt' ? setSkt(barcode)
+        : 'kt' ? setKt(barcode)
+        : 'lgu' ? setLgu(barcode) : console.log('error');
+    }, [barcode]);
+
+    const onClickDeleteBarcode = useCallback(e => {
+        localStorage.removeItem(e.target.id);
+        if (e.target.id === 'skt') setSkt(null);
+        if (e.target.id === 'kt') setKt(null);
+        if (e.target.id === 'lgu') setLgu(null);
+        console.log(skt, kt, lgu);
+    }, [skt, kt, lgu]);
+
+    useEffect(() => {
         console.log('isLoggedIn: ', isLoggedIn);
-    }, []);
+
+        const BarcodeSKT = localStorage.getItem('skt');
+        const BarcodeKT = localStorage.getItem('kt');
+        const BarcodeLGU = localStorage.getItem('lgu');
+
+        if (BarcodeSKT !== null) setSkt(BarcodeSKT);
+        if (BarcodeKT !== null) setKt(BarcodeKT);
+        if (BarcodeLGU !== null) setLgu(BarcodeLGU);
+    }, [skt, kt, lgu]);
 
     return (
         <Row_Store className="appLayout">
@@ -118,16 +172,60 @@ const AppLayout = () => {
                                     <LiContent onClick={onClickLogout}>로그아웃</LiContent>
                             }
                         </Li>
+
                         {/* 할인 바코드 */}
                         <SaleTitle>통신사 할인</SaleTitle>
                         <Li>
-                            <LiContent>SKT</LiContent>
+                            <LiContent onClick={onClickSKT}>SKT</LiContent>
+                            <SKTBarcodeWrap state={sktWrap}>
+                                {
+                                    skt === null ?
+                                        <>
+                                            <InputBarcode placeholder="바코드 입력" onChange={onChangeBarcode} />
+                                            <SaveBarcode onClick={onClickSaveBarcode} name='skt' type="button" value="저장"/>
+                                        </>
+                                        :
+                                        <>
+                                            <Barcode value={skt} />
+                                            <BarcodeDelete onClick={onClickDeleteBarcode} id='skt'>삭제</BarcodeDelete>
+                                        </>
+                                }
+                            </SKTBarcodeWrap>
                         </Li>
                         <Li>
-                            <LiContent>KT</LiContent>
+                            <LiContent onClick={onClickKT}>KT</LiContent>
+                            <KTBarcodeWrap state={ktWrap}>
+                                {
+                                    kt === null ?
+                                        <>
+                                            <InputBarcode placeholder="바코드 입력" onChange={onChangeBarcode} />
+                                            <SaveBarcode onClick={onClickSaveBarcode} name='kt' type="button" value="저장"/>
+                                        </>
+                                        :
+                                        <>
+                                            <Barcode value={kt} />
+                                            <BarcodeDelete onClick={onClickDeleteBarcode} id='kt'>삭제</BarcodeDelete>
+                                        </>
+                                }
+                            </KTBarcodeWrap>
                         </Li>
                         <Li>
-                            <LiContent>LGU+</LiContent>
+                            <LiContent onClick={onClickLGU}>LGU</LiContent>
+                            <LGUBarcodeWrap state={lguWrap}>
+                                {
+                                    lgu === null ?
+                                        <>
+                                            <InputBarcode placeholder="바코드 입력" onChange={onChangeBarcode} />
+                                            <SaveBarcode onClick={onClickSaveBarcode} name='lgu' type="button" value="저장"/>
+                                        </>
+                                        :
+                                        <>
+                                            <Barcode value={lgu} />
+                                            <BarcodeDelete onClick={onClickDeleteBarcode} id='lgu'>삭제</BarcodeDelete>
+                                        </>
+                                }
+
+                            </LGUBarcodeWrap>
                         </Li>
                     </Ul>
                 </MenuWrap>
