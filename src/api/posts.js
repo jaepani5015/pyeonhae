@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-export const getUser = async () => {
-    const res = await axios({
+export const getUser = (email, password) => {
+    const res = axios({withCredentials
         method: 'post',
         url: 'http://3.34.200.65/login',
         data: {
-            email: "pjhyl1127@gmail.com",
-            password: "12341234"
+            "email": email,
+            "password": passwords
         }
     });
     return res;

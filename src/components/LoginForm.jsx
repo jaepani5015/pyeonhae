@@ -4,7 +4,7 @@ import { Row, Col, Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getPost } from '../modules/user';
+import { loginAction } from '../modules/user';
 
 import {
     Title,
@@ -18,10 +18,8 @@ const LoginForm = () => {
     // 리덕스 end
 
     const onFinish = useCallback(e => {
-        console.log('you onFinish');
         console.log(e);
-
-        dispatch(getPost());
+        dispatch(loginAction(e.userEmail, e.userPassword));
     }, []);
 
     return (

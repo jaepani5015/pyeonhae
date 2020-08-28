@@ -1,53 +1,105 @@
-// import * as postAPI from '../api/posts';
 import { getUser } from '../api/posts';
 
-const GET_POST = 'GET_POST';
-const GET_POST_SUCCES = 'GET_POST_SUCCESS';
-const GET_POST_FAIL = 'GET_POST_FAIL';
+// action type
+const GET_USER = 'GET_USER';
+const GET_USER_SUCCES = 'GET_USER_SUCCESS';
+const GET_USER_ERROR = 'GET_USER_ERROR';
 
-export const getPost = () => async dispatch => {
-    dispatch({ type: GET_POST });
+// redux-thunk 함수생성
+export const loginAction = (email, password) => async dispatch => {
+    console.log('get user dispatch');
+    const payload = await getUser(email, password);
+
+    dispatch({ type: GET_USER });
     try {
-        const post = await getUser();
-        dispatch({ type: GET_POST_SUCCES, data: post });
-    } catch (error) {
-        dispatch({ type: GET_POST_FAIL, error: error });
+        console.log('try');
+        dispatch({ type: GET_USER_SUCCES, payload });
+        // console.log('try success : ', payload);
+    } catch (e) {
+        dispatch({ type: GET_USER_ERROR, error: e });
+        console.log('error', e);
     }
 };
 
+// 초기 상태 선언
 const initialState = {
+    isLoggedIn: false,
     loading: false,
-    data: null,
     error: null,
-}
+    User: {
+        id: null,
+        nickName: null,
+        email: null,
+        mainAuth: false,
+        createAt: null,
+        wishList: [
+            {
+                id: null,
+                brand: null,
+                title: null,
+                price: null,
+                imageURL: null,
+                rating: null,
+                replyCount: null,
+                viewCount: null,
+                category: null,
+                saleTypeList: [
+                    {
+                        salePeriod: null,
+                        saleType: null,
+                    }
+                ]
+            }
+        ],
+        barcodes: null,
+    }
+};
 
-export const post = (state = initialState, action) => {
+
+export const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_POST:
+        case GET_USER:
             return {
                 ...state,
                 loading: true,
-                data: null,
+                isLoggedIn: false,
                 error: null,
+                User: {
+                    ...state.User,
+                }
             };
-        case GET_POST_SUCCES:
-            console.log('hihihihihi', action.data.data.id);
+            
+        case GET_USER_SUCCES:
+            const wl = action.payload.data.wishList.map(staet => (staet));
             return {
                 ...state,
                 loading: true,
-                data: action.data,
+                isLoggedIn: true,
                 error: null,
+                User: {
+                    id: action.payload.data.id,
+                    nickName: action.payload.data.nickName,
+                    email: action.payload.data.email,
+                    mainAuth: action.payload.data.mainAuth,
+                    createAt: action.payload.data.createAt,
+                    wishList: wl,
+                    barcodes: action.payload.data.barcodes,
+                }
             };
-        case GET_POST_FAIL:
+
+        case GET_USER_ERROR:
             return {
                 ...state,
                 loading: true,
-                data: null,
-                error: action.error
+                isLoggedIn: false,
+                error: action.error,
+                User: {
+                    ...state.User,
+                }
             };
 
         default: return state;
     }
 }
 
-export default post;
+export default reducer;
