@@ -4,7 +4,7 @@ import { Row, Col, Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { loginAction } from '../modules/user';
+import { getPost } from '../modules/user';
 
 import {
     Title,
@@ -21,7 +21,7 @@ const LoginForm = () => {
         console.log('you onFinish');
         console.log(e);
 
-        dispatch(loginAction(e.userEmail, e.userPassword));
+        dispatch(getPost());
     }, []);
 
     return (

@@ -20,5 +20,4 @@ export const UserComment = styled.div`
 
 export const Hr = styled.hr`
     margin: 30px 0;
-    border: thin solid #bdbdbd;
 `;

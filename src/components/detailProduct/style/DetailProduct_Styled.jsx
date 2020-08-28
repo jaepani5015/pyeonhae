@@ -55,7 +55,6 @@ export const Price = styled.div`
 
 export const Hr = styled.hr`
     margin: 30px 0;
-    border: thin solid #bdbdbd;
 
     @media only screen and (max-width: 768px) {
         margin: 20px 0;

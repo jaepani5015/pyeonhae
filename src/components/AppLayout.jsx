@@ -3,7 +3,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { Col, Row } from 'antd';
 import { Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { logoutAction } from '../modules/user';
+// import { logoutAction } from '../modules/user';
 
 import useWindowSize from '../hooks/useWindowSize';
 import Barcode from 'react-barcode';
@@ -34,13 +34,13 @@ import {
 
 const AppLayout = () => {
     // 리덕스 start
-    const { isLoggedIn } = useSelector(state => ({
-        isLoggedIn: state.user.isLoggedIn,
-    }));
+    // const { isLoggedIn } = useSelector(state => ({
+    //     isLoggedIn: state.user.isLoggedIn,
+    // }));
 
     const dispatch = useDispatch();
     const onClickLogout = useCallback(e => {
-        dispatch(logoutAction());
+        // dispatch(logoutAction());
     }, []);
     // 리덕스 end
 
@@ -106,7 +106,7 @@ const AppLayout = () => {
     }, [skt, kt, lgu]);
 
     useEffect(() => {
-        console.log('isLoggedIn: ', isLoggedIn);
+        // console.log('isLoggedIn: ', isLoggedIn);
 
         const BarcodeSKT = localStorage.getItem('skt');
         const BarcodeKT = localStorage.getItem('kt');
@@ -145,14 +145,14 @@ const AppLayout = () => {
                                 <>
                                     <MenuOutlined style={{ marginLeft: 40 }} onClick={onClickMenu} />
                                 </>
-                                :
+                                : 'hi'
                                 // 데스크탑 화면에서
-                                isLoggedIn === false ?
-                                    <Link style={{ color: "black" }} to='/login'>
-                                        <Span>로그인</Span>
-                                    </Link>
-                                    :
-                                    <Span onClick={onClickLogout}>로그아웃</Span>
+                                // isLoggedIn === false ?
+                                //     <Link style={{ color: "black" }} to='/login'>
+                                //         <Span>로그인</Span>
+                                //     </Link>
+                                //     :
+                                //     <Span onClick={onClickLogout}>로그아웃</Span>
 
                         }
                     </Col_Login>
@@ -164,12 +164,12 @@ const AppLayout = () => {
                     <Ul>
                         <Li>
                             {
-                                isLoggedIn === false ?
-                                    <Link style={{ color: "black" }} to='/login'>
-                                        <LiContent>로그인</LiContent>
-                                    </Link>
-                                    :
-                                    <LiContent onClick={onClickLogout}>로그아웃</LiContent>
+                                // isLoggedIn === false ?
+                                //     <Link style={{ color: "black" }} to='/login'>
+                                //         <LiContent>로그인</LiContent>
+                                //     </Link>
+                                //     :
+                                //     <LiContent onClick={onClickLogout}>로그아웃</LiContent>
                             }
                         </Li>
 
