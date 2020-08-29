@@ -77,6 +77,7 @@ export const reducer = (state = initialState, action) => {
                 isLoggedIn: true,
                 error: null,
                 User: {
+                    ...action.payload.User,
                     id: action.payload.data.id,
                     nickName: action.payload.data.nickName,
                     email: action.payload.data.email,
