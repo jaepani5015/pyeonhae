@@ -1,9 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 
 import { Row, Col, Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginAction } from '../modules/user';
 
 import {
@@ -15,12 +15,18 @@ import {
 const LoginForm = () => {
     // 리덕스 start
     const dispatch = useDispatch();
+    const selectLogin = useSelector(state => state.user.isLoggedIn);
     // 리덕스 end
 
+    const history = useHistory();
     const onFinish = useCallback(e => {
         console.log(e);
         dispatch(loginAction(e.userEmail, e.userPassword));
     }, []);
+
+    useEffect(() => {
+        selectLogin === true ? history.push('/') : console.log('isLoggedIn : ', selectLogin);
+    }, [selectLogin]);
 
     return (
         <Row style={{ marginTop: 100 }}>

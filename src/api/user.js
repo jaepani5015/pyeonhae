@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const getUser = (email, password) => {
+export const userLogin = (email, password) => {
     const res = axios({
         method: 'post',
         url: 'http://3.34.200.65/login',
@@ -10,4 +10,12 @@ export const getUser = (email, password) => {
         }
     });
     return res;
-}
+};
+
+export const userLogout = () => {
+    const res = axios({
+        method: 'get',
+        url: 'http://3.34.200.65/logout',
+    });
+    return res;
+};

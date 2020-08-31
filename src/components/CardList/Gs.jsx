@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Star from 'react-rating-stars-component'; 
+import Star from 'react-rating-stars-component';
 
 import {
     Div_wrap,

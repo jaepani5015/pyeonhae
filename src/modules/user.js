@@ -1,24 +1,43 @@
-import { getUser } from '../api/posts';
+import { userLogin, userLogout } from '../api/user';
 
 // action type
-const GET_USER = 'GET_USER';
-const GET_USER_SUCCES = 'GET_USER_SUCCESS';
-const GET_USER_ERROR = 'GET_USER_ERROR';
+const GET_USER_LOGIN = 'GET_USER_LOGIN';
+const GET_USER_LOGIN_SUCCESS = 'GET_USER_LOGIN_SUCCESS';
+const GET_USER_LOGIN_ERROR = 'GET_USER_LOGIN_ERROR';
+
+const GET_USER_LOGOUT = 'GET_USER_LOGOUT';
+const GET_USER_LOGOUT_SUCCESS = 'GET_USER_LOGOUT_SUCCESS';
+const GET_USER_LOGOUT_ERROR = 'GET_USER_LOGOUT_ERROR';
 
 // redux-thunk 함수생성
 export const loginAction = (email, password) => async dispatch => {
     console.log('get user dispatch');
-    const payload = await getUser(email, password);
+    const payload = await userLogin(email, password);
 
-    dispatch({ type: GET_USER });
+    dispatch({ type: GET_USER_LOGIN });
     try {
         console.log('try');
-        dispatch({ type: GET_USER_SUCCES, payload });
-        // console.log('try success : ', payload);
+        dispatch({ type: GET_USER_LOGIN_SUCCESS, payload });
     } catch (e) {
-        dispatch({ type: GET_USER_ERROR, error: e });
+        dispatch({ type: GET_USER_LOGIN_ERROR, error: e });
         console.log('error', e);
     }
+};
+
+export const logoutAction = () => async dispatch => {
+    console.log('logout action dispatch redux thunk');
+
+    const payload = await userLogout();
+
+    console.log('logout action payload : ', payload);
+
+    // dispatch({ type: GET_USER_LOGOUT });
+    // try {
+    //     dispatch({ type: GET_USER_LOGOUT_SUCCESS, payload });
+    // } catch (e) {
+    //     dispatch({ type: GET_USER_LOGOUT_ERROR, error: e });
+    //     console.log('logout action error!!! : ', e);
+    // }
 };
 
 // 초기 상태 선언
@@ -58,7 +77,7 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_USER:
+        case GET_USER_LOGIN:
             return {
                 ...state,
                 loading: true,
@@ -69,7 +88,7 @@ export const reducer = (state = initialState, action) => {
                 }
             };
             
-        case GET_USER_SUCCES:
+        case GET_USER_LOGIN_SUCCESS:
             const wl = action.payload.data.wishList.map(staet => (staet));
             return {
                 ...state,
@@ -88,7 +107,7 @@ export const reducer = (state = initialState, action) => {
                 }
             };
 
-        case GET_USER_ERROR:
+        case GET_USER_LOGIN_ERROR:
             return {
                 ...state,
                 loading: true,
