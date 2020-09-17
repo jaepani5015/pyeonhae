@@ -2,12 +2,11 @@ import styled from 'styled-components';
 
 export const TextArea = styled.textarea`
     width: 90%;
-    height: 70px;
+    height: 100px;
     padding: 10px;
     border-radius: 5px;
     border: 0.1px solid #000;
     resize: none;
-    overflow: scroll;
 
     @media only screen and (max-width: 768px) {
         width: 80%;
