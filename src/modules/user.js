@@ -104,7 +104,7 @@ export const reducer = (state = initialState, action) => {
                     createAt: action.payload.data.createAt,
                     wishList: wl,
                     barcodes: action.payload.data.barcodes,
-                }
+                },
             };
 
         case GET_USER_LOGIN_ERROR:
