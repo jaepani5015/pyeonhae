@@ -11,11 +11,3 @@ export const userLogin = (email, password) => {
     });
     return res;
 };
-
-export const userLogout = () => {
-    const res = axios({
-        method: 'get',
-        url: 'http://3.34.200.65/logout',
-    });
-    return res;
-};

@@ -4,10 +4,14 @@ import { Row, Col, Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined, EyeOutlined } from '@ant-design/icons';
 
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { Title } from './style/RegisterForm_Styled';
 
+import { nickNameCheck } from '../modules/userReg';
+
 const RegisterForm = () => {
+    const dispatch = useDispatch();
 
     const onFinish = useCallback(e => {
         console.log('you onFinish');
@@ -17,6 +21,7 @@ const RegisterForm = () => {
     const [password, setPassword] = useState(null);
     const [passwordCheck, setPasswordCheck] = useState(null);
     const [passwordState, setPasswordState] = useState(false);
+    const [nickName, setNickName] = useState(null);
 
     // 비밀번호 입력 이벤트
     const onChangePassword = useCallback(e => {
@@ -29,6 +34,11 @@ const RegisterForm = () => {
         console.log('onchangepasswordcheck :', e.target.value);
         setPasswordCheck(e.target.value);
     }, [passwordCheck]);
+
+    // 닉네임체크
+    const onClickNickNameCheck = useCallback(() => {
+        dispatch(nickNameCheck(nickName));
+    }, []);
 
     // 비밀번호 동일 확인
     useEffect(() => {
@@ -54,9 +64,11 @@ const RegisterForm = () => {
                     <Form.Item
                         label="닉네임"
                         name="userNicname"
+                        onChange={e => setNickName(e.target.value)}
                         rules={[{ required: true, whitespace: true, message: '사용하실 닉네임을 입력해 주세요' }]}
                     >
                         <Input prefix={<EyeOutlined />} placeholder="닉네임" style={{ borderRadius: 10 }} />
+                        <Button style={{ margin: '20px 0 0 0' }} onClick={onClickNickNameCheck}>닉네임 확인</Button>
                     </Form.Item>
 
                     {/* ID */}

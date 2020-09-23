@@ -1,4 +1,4 @@
-import { userLogin, userLogout } from '../api/user';
+import { userLogin } from '../api/user';
 
 // action type
 const GET_USER_LOGIN = 'GET_USER_LOGIN';
@@ -6,10 +6,9 @@ const GET_USER_LOGIN_SUCCESS = 'GET_USER_LOGIN_SUCCESS';
 const GET_USER_LOGIN_ERROR = 'GET_USER_LOGIN_ERROR';
 
 const GET_USER_LOGOUT = 'GET_USER_LOGOUT';
-const GET_USER_LOGOUT_SUCCESS = 'GET_USER_LOGOUT_SUCCESS';
-const GET_USER_LOGOUT_ERROR = 'GET_USER_LOGOUT_ERROR';
 
 // redux-thunk 함수생성
+// login
 export const loginAction = (email, password) => async dispatch => {
     console.log('get user dispatch');
     const payload = await userLogin(email, password);
@@ -24,21 +23,13 @@ export const loginAction = (email, password) => async dispatch => {
     }
 };
 
-export const logoutAction = () => async dispatch => {
-    console.log('logout action dispatch redux thunk');
-
-    const payload = await userLogout();
-
-    console.log('logout action payload : ', payload);
-
-    // dispatch({ type: GET_USER_LOGOUT });
-    // try {
-    //     dispatch({ type: GET_USER_LOGOUT_SUCCESS, payload });
-    // } catch (e) {
-    //     dispatch({ type: GET_USER_LOGOUT_ERROR, error: e });
-    //     console.log('logout action error!!! : ', e);
-    // }
-};
+// logout
+export const logoutAction = () => {
+    console.log('this is logout action');
+    return {
+        type: GET_USER_LOGOUT,
+    }
+}
 
 // 초기 상태 선언
 const initialState = {
@@ -77,6 +68,7 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
+        // 유저 로그인 시도
         case GET_USER_LOGIN:
             return {
                 ...state,
@@ -87,7 +79,7 @@ export const reducer = (state = initialState, action) => {
                     ...state.User,
                 }
             };
-            
+        // 유저 로그인 성공
         case GET_USER_LOGIN_SUCCESS:
             const wl = action.payload.data.wishList.map(staet => (staet));
             return {
@@ -106,7 +98,7 @@ export const reducer = (state = initialState, action) => {
                     barcodes: action.payload.data.barcodes,
                 },
             };
-
+        // 유저 로그인 실패
         case GET_USER_LOGIN_ERROR:
             return {
                 ...state,
@@ -117,7 +109,41 @@ export const reducer = (state = initialState, action) => {
                     ...state.User,
                 }
             };
-
+        // 유저 로그아웃
+        case GET_USER_LOGOUT:
+            return {
+                ...state,
+                isLoggedIn: false,
+                loading: false,
+                error: null,
+                User: {
+                    id: null,
+                    nickName: null,
+                    email: null,
+                    mainAuth: false,
+                    createAt: null,
+                    wishList: [
+                        {
+                            id: null,
+                            brand: null,
+                            title: null,
+                            price: null,
+                            imageURL: null,
+                            rating: null,
+                            replyCount: null,
+                            viewCount: null,
+                            category: null,
+                            saleTypeList: [
+                                {
+                                    salePeriod: null,
+                                    saleType: null,
+                                }
+                            ]
+                        }
+                    ],
+                    barcodes: null,
+                }
+            }
         default: return state;
     }
 }
