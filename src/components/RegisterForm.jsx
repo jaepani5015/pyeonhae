@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 import { Row, Col, Form, Input, Button } from 'antd';
-import { UserOutlined, LockOutlined, EyeOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined, EyeOutlined, ConsoleSqlOutlined, EyeTwoTone } from '@ant-design/icons';
 
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,6 +23,7 @@ const RegisterForm = () => {
     const [passwordCheck, setPasswordCheck] = useState(null);
     const [passwordState, setPasswordState] = useState(false);
     const [nickName, setNickName] = useState(null);
+    
 
     // 비밀번호 입력 이벤트
     const onChangePassword = useCallback(e => {
@@ -43,12 +44,15 @@ const RegisterForm = () => {
 
     // 비밀번호 동일 확인
     useEffect(() => {
-        console.log(passwordState);
         password === passwordCheck ? setPasswordState(true) : setPasswordState(false);
     }, [password, passwordCheck, passwordState]);
 
     useEffect(() => {
-        console.log(nickNameSelect);
+        if(nickNameSelect === false) {
+            alert('이미 사용중인 닉네임 입니다.');
+            setNickName(null);
+        } else if(nickNameSelect === true) alert('사용가능한 닉네임 입니다.');
+        else console.log('error');
     }, [nickNameSelect]);
 
     return (
@@ -56,7 +60,7 @@ const RegisterForm = () => {
             <Col xs={1} md={6} />
             <Col xs={22} md={10}>
                 <Title>
-                    <Link to='/' style={{ color: '#000000' }}>편할까</Link>
+                    <Link to='/' style={{ color: '#000000' }}>편해</Link>
                 </Title>
                 <p style={{ textAlign: 'center' }}><Link to='/' style={{ color: '#a0a0a0', fontSize: '13px' }}>회원가입</Link></p>
                 <Form
@@ -69,10 +73,15 @@ const RegisterForm = () => {
                     <Form.Item
                         label="닉네임"
                         name="userNicname"
-                        onChange={e => setNickName(e.target.value)}
                         rules={[{ required: true, whitespace: true, message: '사용하실 닉네임을 입력해 주세요' }]}
                     >
-                        <Input prefix={<EyeOutlined />} placeholder="닉네임" style={{ borderRadius: 10 }} />
+                        <Input
+                            prefix={<EyeOutlined />}
+                            onChange={e => setNickName(e.target.value)}
+                            value={nickName}
+                            placeholder="닉네임"
+                            style={{ borderRadius: 10 }}
+                        />
                         <Button style={{ margin: '20px 0 0 0' }} onClick={onClickNickNameCheck}>닉네임 확인</Button>
                     </Form.Item>
 
@@ -82,7 +91,12 @@ const RegisterForm = () => {
                         name="userEmail"
                         rules={[{ required: true, whitespace: false, message: '사용하실 이메일을 입력해 주세요' }]}
                     >
-                        <Input prefix={<UserOutlined />} placeholder="이메일" type="email" style={{ borderRadius: 10 }} />
+                        <Input
+                            prefix={<UserOutlined />}
+                            placeholder="이메일"
+                            type="email"
+                            style={{ borderRadius: 10 }}
+                        />
                     </Form.Item>
 
                     {/* PASSWORD */}

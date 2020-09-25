@@ -14,7 +14,6 @@ const GET_EMAIL_CHECK_ERROR = 'GET_EMAIL_CHECK_ERROR';
 // redux-thunk 함수생성
 // nickname check
 export const nickNameCheck = (nickName) => async dispatch => {
-    console.log('nickname check dispatch');
     const payload = await nickNameCheckAPI(nickName);
 
     dispatch({ type: GET_NICKNAME_CHECK });
@@ -38,14 +37,11 @@ const initialState = {
 export const reducer = (state = initialState, action) => {
     switch(action.type){
         case GET_NICKNAME_CHECK:
-            console.log('get nickname check', action.payload);
             return {
                 ...state,
                 loading: true,
             }
         case GET_NICKNAME_CHECK_SUCCESS:
-            console.log('get nickname success', action.payload);
-            console.log('get nickname success', action.payload.data);
             return {
                 ...state,
                 loading: true,
@@ -55,7 +51,6 @@ export const reducer = (state = initialState, action) => {
                 }
             }
         case GET_NICKNAME_CHECK_ERROR:
-            console.log('get nickname error', action.payload);
             return {
                 ...state,
                 loading: true,
