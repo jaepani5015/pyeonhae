@@ -4,13 +4,14 @@ import { Row, Col, Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined, EyeOutlined } from '@ant-design/icons';
 
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Title } from './style/RegisterForm_Styled';
 
 import { nickNameCheck } from '../modules/userReg';
 
 const RegisterForm = () => {
+    const nickNameSelect = useSelector(state => state.userReg.reg.nickName);
     const dispatch = useDispatch();
 
     const onFinish = useCallback(e => {
@@ -38,13 +39,17 @@ const RegisterForm = () => {
     // 닉네임체크
     const onClickNickNameCheck = useCallback(() => {
         dispatch(nickNameCheck(nickName));
-    }, []);
+    }, [nickName]);
 
     // 비밀번호 동일 확인
     useEffect(() => {
         console.log(passwordState);
         password === passwordCheck ? setPasswordState(true) : setPasswordState(false);
     }, [password, passwordCheck, passwordState]);
+
+    useEffect(() => {
+        console.log(nickNameSelect);
+    }, [nickNameSelect]);
 
     return (
         <Row style={{ marginTop: 100 }}>
