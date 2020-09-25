@@ -8,10 +8,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Title } from './style/RegisterForm_Styled';
 
-import { nickNameCheck } from '../modules/userReg';
+import { nickNameCheck, emailCheck } from '../modules/userReg';
 
 const RegisterForm = () => {
     const nickNameSelect = useSelector(state => state.userReg.reg.nickName);
+    const emailSelect = useSelector(state => state.userReg.reg.email);
     const dispatch = useDispatch();
 
     const onFinish = useCallback(e => {
@@ -22,7 +23,13 @@ const RegisterForm = () => {
     const [password, setPassword] = useState(null);
     const [passwordCheck, setPasswordCheck] = useState(null);
     const [passwordState, setPasswordState] = useState(false);
+
+    const [useRegState, setUseRegState] = useState({
+        nickNameState: false,
+        emailState: false,
+    });
     const [nickName, setNickName] = useState(null);
+    const [email, setEmail] = useState(null);
     
 
     // 비밀번호 입력 이벤트
@@ -42,6 +49,11 @@ const RegisterForm = () => {
         dispatch(nickNameCheck(nickName));
     }, [nickName]);
 
+    // 이메일체크
+    const onClickEmailCheck = useCallback(() => {
+        dispatch(emailCheck(email));
+    }, [email]);
+
     // 비밀번호 동일 확인
     useEffect(() => {
         password === passwordCheck ? setPasswordState(true) : setPasswordState(false);
@@ -51,9 +63,21 @@ const RegisterForm = () => {
         if(nickNameSelect === false) {
             alert('이미 사용중인 닉네임 입니다.');
             setNickName(null);
-        } else if(nickNameSelect === true) alert('사용가능한 닉네임 입니다.');
-        else console.log('error');
+        } else if(nickNameSelect === true){
+            alert('사용가능한 닉네임 입니다.');
+            setUseRegState({ ...useRegState, nickNameState: true });
+        } else console.log('nickNameSelect error');
     }, [nickNameSelect]);
+
+    useEffect(() => {
+        if(emailSelect === false) {
+            alert('이미 사용중인 이메일 입니다.');
+            setEmail(null);
+        } else if(emailSelect === true){
+            alert('사용가능한 이메일 입니다.');
+            setUseRegState({ ...useRegState, emailState: true });
+        } else console.log('emailSelect error');
+    }, [emailSelect]);
 
     return (
         <Row style={{ marginTop: 100 }}>
@@ -82,10 +106,10 @@ const RegisterForm = () => {
                             placeholder="닉네임"
                             style={{ borderRadius: 10 }}
                         />
-                        <Button style={{ margin: '20px 0 0 0' }} onClick={onClickNickNameCheck}>닉네임 확인</Button>
+                        <Button style={{ margin: '20px 0 0 0' }} onClick={onClickNickNameCheck}>닉네임 중복확인</Button>
                     </Form.Item>
 
-                    {/* ID */}
+                    {/* EMAIL */}
                     <Form.Item
                         label="이메일"
                         name="userEmail"
@@ -93,10 +117,13 @@ const RegisterForm = () => {
                     >
                         <Input
                             prefix={<UserOutlined />}
+                            onChange={e => setEmail(e.target.value)}
+                            value={email}
                             placeholder="이메일"
                             type="email"
                             style={{ borderRadius: 10 }}
                         />
+                        <Button style={{ margin: '20px 0 0 0' }} onClick={onClickEmailCheck}>이메일 중복확인</Button>
                     </Form.Item>
 
                     {/* PASSWORD */}
@@ -129,7 +156,9 @@ const RegisterForm = () => {
                             type="primary"
                             htmlType="submit"
                             style={{ borderRadius: 10 }}
-                            disabled={passwordCheck && passwordState === true ? false : true}
+                            disabled={passwordCheck && passwordState === true ? 
+                                useRegState.emailState && useRegState.nickNameState === true ? false
+                                : true : true}
                         >
                             회원가입
                         </Button>
