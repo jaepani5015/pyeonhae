@@ -1,4 +1,4 @@
-import { emailCheckApi, nickNameCheckApi, userRegSendApi } from '../api/userRegApi';
+import { emailCheckApi, nickNameCheckApi, userRegSendApi, authApi } from '../api/userRegApi';
 
 // action type
 // 닉네임 체크
@@ -15,6 +15,11 @@ const GET_EMAIL_CHECK_ERROR = 'GET_EMAIL_CHECK_ERROR';
 const GET_USERREG_CHECK = 'GET_USERREG_CHECK';
 const GET_USERREG_CHECK_SUCCESS = 'GET_USERREG_CHECK_SUCCESS';
 const GET_USERREG_CHECK_ERROR = 'GET_USERREG_CHECK_ERROR';
+
+// 이메일 인증
+const GET_AUTH_CHECK = 'GET_AUTH_CHECK';
+const GET_AUTH_CHECK_SUCCESS = 'GET_AUTH_CHECK_SUCCESS';
+const GET_AUTH_CHECK_ERROR = 'GET_AUTH_CHECK_ERROR';
 
 // redux-thunk 함수생성
 // nickname check
@@ -53,6 +58,18 @@ export const userRegSend = (email, nickName, password) => async dispatch => {
     }
 }
 
+// 이메일 인증
+export const auth = (auth, id) => async dispatch => {
+    const payload = await authApi(auth, id);
+
+    dispatch({ type: GET_AUTH_CHECK });
+    try {
+        dispatch({ type: GET_AUTH_CHECK_SUCCESS, payload });
+    } catch (e) {
+        dispatch({ type: GET_AUTH_CHECK_ERROR, error: e });
+    }
+}
+
 // 초기상태
 const initialState = {
     loading: false,
@@ -61,7 +78,11 @@ const initialState = {
         nickName: null,
         email: null,
     },
-    regStatus: null
+    regStatus: {
+        email: null,
+        id: null,
+    },
+    emailAuth: null,
 }
 
 export const reducer = (state = initialState, action) => {
@@ -122,11 +143,13 @@ export const reducer = (state = initialState, action) => {
             }
         // 회원가입 체크 성공
         case GET_USERREG_CHECK_SUCCESS:
-            console.log('#################hihihihihihihi : ', action.payload);
             return {
                 ...state,
                 loading: true,
-                regStatus: action.payload,
+                regStatus: {
+                    email: action.payload.data.email,
+                    id: action.payload.data.id,
+                },
             }
         // 회원가입 체크 에러
         case GET_USERREG_CHECK_ERROR:
@@ -135,6 +158,16 @@ export const reducer = (state = initialState, action) => {
                 loading: true,
                 error: action.error,
             }
+
+        // 이메일 인증
+        case GET_AUTH_CHECK:
+            return {}
+        // 이메일 인증 성공
+        case GET_AUTH_CHECK_SUCCESS:
+            return {}
+        // 이메일 인증 에러
+        case GET_AUTH_CHECK_ERROR:
+            return {}
         default: return state;
     }
 }

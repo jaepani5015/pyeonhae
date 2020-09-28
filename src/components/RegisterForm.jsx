@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Title } from './style/RegisterForm_Styled';
 
-import { nickNameCheck, emailCheck, userRegSend } from '../modules/userReg';
+import { nickNameCheck, emailCheck, userRegSend, auth } from '../modules/userReg';
 
 const RegisterForm = () => {
     const dispatch = useDispatch();
@@ -19,6 +19,7 @@ const RegisterForm = () => {
     const [password, setPassword] = useState(null);
     const [passwordCheck, setPasswordCheck] = useState(null);
     const [passwordState, setPasswordState] = useState(false);
+    const [auth, setAuth] = useState(null);
 
     const [check, setCheck] = useState({
         nickNameState: false,
@@ -52,6 +53,12 @@ const RegisterForm = () => {
         dispatch(emailCheck(email));
     }, [email]);
 
+    // 이메일인증
+    const onClickAuth = useCallback(() => {
+        console.log(auth);
+        dispatch(auth(auth, regState.id));
+    }, [auth]);
+
     // 비밀번호 동일 확인
     useEffect(() => {
         password === passwordCheck ? setPasswordState(true) : setPasswordState(false);
@@ -78,9 +85,8 @@ const RegisterForm = () => {
     }, [emailSelect]);
 
     useEffect(() => {
-        // console.log('regState!!!!!! ', regState);
-        console.log('email : ', email);
-    }, [regState, email]);
+        console.log('regState!!!!!! ', regState.id === null ? "null" : regState.id);
+    }, [regState]);
 
     return (
         <Row style={{ marginTop: 100 }}>
@@ -114,7 +120,7 @@ const RegisterForm = () => {
                     {/* EMAIL */}
                     <Form.Item
                         label="이메일"
-                        name="userEmail"
+                        name="user  "
                         rules={[{ whitespace: false, message: '사용하실 이메일을 입력해 주세요' }]}
                     >
                         <Input
@@ -166,6 +172,21 @@ const RegisterForm = () => {
                         </Button>
                     </Form.Item>
                 </Form>
+                <br/>
+                {
+                    regState.id !== null ?
+                        <div>
+                            <Input
+                                onChange={e => setAuth(e.target.value)}
+                                value={auth}
+                                placeholder="이메일인증 코드"
+                                type="auth"
+                                style={{ borderRadius: 10 }}
+                            />
+                            <Button style={{ margin: '20px 0 0 0' }} onClick={onClickAuth}>완료</Button>
+                        </div> : console.log('null')
+                }
+
             </Col>
             <Col xs={1} md={6} />
         </Row>
