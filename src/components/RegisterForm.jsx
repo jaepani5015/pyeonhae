@@ -8,39 +8,37 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Title } from './style/RegisterForm_Styled';
 
-import { nickNameCheck, emailCheck } from '../modules/userReg';
+import { nickNameCheck, emailCheck, userRegSend } from '../modules/userReg';
 
 const RegisterForm = () => {
-    const nickNameSelect = useSelector(state => state.userReg.reg.nickName);
-    const emailSelect = useSelector(state => state.userReg.reg.email);
     const dispatch = useDispatch();
-
-    const onFinish = useCallback(e => {
-        console.log('you onFinish');
-        console.log(e);
-    }, []);
+    const nickNameSelect = useSelector(state => state.userReg.check.nickName);
+    const emailSelect = useSelector(state => state.userReg.check.email);
+    const regState = useSelector(state => state.userReg.regStatus);
 
     const [password, setPassword] = useState(null);
     const [passwordCheck, setPasswordCheck] = useState(null);
     const [passwordState, setPasswordState] = useState(false);
 
-    const [useRegState, setUseRegState] = useState({
+    const [check, setCheck] = useState({
         nickNameState: false,
         emailState: false,
     });
     const [nickName, setNickName] = useState(null);
     const [email, setEmail] = useState(null);
     
+    // 회원가입 버튼 클릭
+    const onFinish = useCallback(e => {
+        dispatch(userRegSend(email, nickName, password));
+    }, [email, nickName, password]);
 
     // 비밀번호 입력 이벤트
     const onChangePassword = useCallback(e => {
-        console.log('onchangepassword :', e.target.value);
         setPassword(e.target.value);
     }, [password]);
 
     // 비밀번호 확인 입력 이벤트
     const onChangePasswordCheck = useCallback(e => {
-        console.log('onchangepasswordcheck :', e.target.value);
         setPasswordCheck(e.target.value);
     }, [passwordCheck]);
 
@@ -65,7 +63,7 @@ const RegisterForm = () => {
             setNickName(null);
         } else if(nickNameSelect === true){
             alert('사용가능한 닉네임 입니다.');
-            setUseRegState({ ...useRegState, nickNameState: true });
+            setCheck({ ...check, nickNameState: true });
         } else console.log('nickNameSelect error');
     }, [nickNameSelect]);
 
@@ -75,9 +73,14 @@ const RegisterForm = () => {
             setEmail(null);
         } else if(emailSelect === true){
             alert('사용가능한 이메일 입니다.');
-            setUseRegState({ ...useRegState, emailState: true });
+            setCheck({ ...check, emailState: true });
         } else console.log('emailSelect error');
     }, [emailSelect]);
+
+    useEffect(() => {
+        // console.log('regState!!!!!! ', regState);
+        console.log('email : ', email);
+    }, [regState, email]);
 
     return (
         <Row style={{ marginTop: 100 }}>
@@ -92,12 +95,11 @@ const RegisterForm = () => {
                     onFinish={onFinish}
                     labelCol={{ xs: { span: 5 } }}
                 >
-
                     {/* NAME */}
                     <Form.Item
                         label="닉네임"
                         name="userNicname"
-                        rules={[{ required: true, whitespace: true, message: '사용하실 닉네임을 입력해 주세요' }]}
+                        rules={[{ whitespace: true, message: '사용하실 닉네임을 입력해 주세요' }]}
                     >
                         <Input
                             prefix={<EyeOutlined />}
@@ -113,7 +115,7 @@ const RegisterForm = () => {
                     <Form.Item
                         label="이메일"
                         name="userEmail"
-                        rules={[{ required: true, whitespace: false, message: '사용하실 이메일을 입력해 주세요' }]}
+                        rules={[{ whitespace: false, message: '사용하실 이메일을 입력해 주세요' }]}
                     >
                         <Input
                             prefix={<UserOutlined />}
@@ -130,7 +132,7 @@ const RegisterForm = () => {
                     <Form.Item
                         label="비밀번호"
                         name="userPassword"
-                        rules={[{ required: true, whitespace: false, message: '사용하실 비밀번호를 입력해 주세요' }]}
+                        rules={[{ whitespace: false, message: '사용하실 비밀번호를 입력해 주세요' }]}
                     >
                         <Input prefix={<LockOutlined />} placeholder="비밀번호" type="password" style={{ borderRadius: 10 }} onChange={onChangePassword} />
                     </Form.Item>
@@ -139,7 +141,7 @@ const RegisterForm = () => {
                     <Form.Item
                         label="비밀번호 체크"
                         name="userPasswordCheck"
-                        rules={[{ required: true, whitespace: false, message: '사용하실 비밀번호를 입력해 주세요' }]}
+                        rules={[{ whitespace: false, message: '사용하실 비밀번호를 입력해 주세요' }]}
                     >
                         <Input prefix={<LockOutlined />} placeholder="비밀번호 확인" type="password" style={{ borderRadius: 10 }} onChange={onChangePasswordCheck} />
                         <div style={{ textAlign: 'end', marginBottom: 25 }}>
@@ -157,7 +159,7 @@ const RegisterForm = () => {
                             htmlType="submit"
                             style={{ borderRadius: 10 }}
                             disabled={passwordCheck && passwordState === true ? 
-                                useRegState.emailState && useRegState.nickNameState === true ? false
+                                check.emailState && check.nickNameState === true ? false
                                 : true : true}
                         >
                             회원가입

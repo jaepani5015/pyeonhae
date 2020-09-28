@@ -1,4 +1,4 @@
-import { emailCheckApi, nickNameCheckApi } from '../api/userRegApi';
+import { emailCheckApi, nickNameCheckApi, userRegSendApi } from '../api/userRegApi';
 
 // action type
 // 닉네임 체크
@@ -10,6 +10,11 @@ const GET_NICKNAME_CHECK_ERROR = 'GET_NICNAME_CHECK_ERROR';
 const GET_EMAIL_CHECK = 'GET_EMAIL_CHECK';
 const GET_EMAIL_CHECK_SCUCCESS = 'GET_EMAIL_CHECK_SUCCESS';
 const GET_EMAIL_CHECK_ERROR = 'GET_EMAIL_CHECK_ERROR';
+
+// 회원가입
+const GET_USERREG_CHECK = 'GET_USERREG_CHECK';
+const GET_USERREG_CHECK_SUCCESS = 'GET_USERREG_CHECK_SUCCESS';
+const GET_USERREG_CHECK_ERROR = 'GET_USERREG_CHECK_ERROR';
 
 // redux-thunk 함수생성
 // nickname check
@@ -36,18 +41,31 @@ export const emailCheck = (email) => async dispatch => {
     }
 }
 
+// 회원가입
+export const userRegSend = (email, nickName, password) => async dispatch => {
+    const payload = await userRegSendApi(email, nickName, password);
+
+    dispatch({ type: GET_USERREG_CHECK });
+    try {
+        dispatch({ type: GET_USERREG_CHECK_SUCCESS, payload });
+    } catch (e) {
+        dispatch({ type: GET_USERREG_CHECK_ERROR, error: e });
+    }
+}
+
 // 초기상태
 const initialState = {
     loading: false,
     error: null,
-    reg: {
+    check: {
         nickName: null,
         email: null,
-    },    
+    },
+    regStatus: null
 }
 
 export const reducer = (state = initialState, action) => {
-    switch(action.type){
+    switch (action.type) {
         // 닉네임 체크
         case GET_NICKNAME_CHECK:
             return {
@@ -60,7 +78,7 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 loading: true,
                 error: null,
-                reg: {
+                check: {
                     nickName: action.payload.data,
                 }
             }
@@ -84,12 +102,34 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 loading: true,
                 error: null,
-                reg: {
+                check: {
                     email: action.payload.data,
                 }
             }
         // 이메일 체크 에러
         case GET_EMAIL_CHECK_ERROR:
+            return {
+                ...state,
+                loading: true,
+                error: action.error,
+            }
+
+        // 회원가입
+        case GET_USERREG_CHECK:
+            return {
+                ...state,
+                loading: true,
+            }
+        // 회원가입 체크 성공
+        case GET_USERREG_CHECK_SUCCESS:
+            console.log('#################hihihihihihihi : ', action.payload);
+            return {
+                ...state,
+                loading: true,
+                regStatus: action.payload,
+            }
+        // 회원가입 체크 에러
+        case GET_USERREG_CHECK_ERROR:
             return {
                 ...state,
                 loading: true,
