@@ -11,3 +11,14 @@ export const userLogin = (email, password) => {
     });
     return res;
 };
+
+export const userDeleteApi = (id) => {
+    const res = axios({
+        method: 'post',
+        url: 'http://3.34.200.65/deleteUser',
+        data: {
+            "id": id
+        }
+    });
+    return res;
+}

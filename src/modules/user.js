@@ -1,4 +1,4 @@
-import { userLogin } from '../api/userApi';
+import { userLogin, userDeleteApi } from '../api/userApi';
 
 // action type
 const GET_USER_LOGIN = 'GET_USER_LOGIN';
