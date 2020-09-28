@@ -38,11 +38,9 @@ export const userRegSendApi = (email, nickName, password) => {
 export const authApi = (auth, id) => {
     const res = axios({
         method: 'post',
-        url: `http://3.34.200.65/`,
+        url: `http://3.34.200.65/verify/${auth}`,
         data: {
-            "email": email,
-            "password" : password,
-            "nickname" : nickName,
+            "id": id,
         }
     });
     return res;
