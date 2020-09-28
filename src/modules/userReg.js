@@ -203,8 +203,9 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 loading: true,
             }
-        // 이메일 인증 성공
+        // 이메일 인증 다시보내기 성공
         case GET_AUTH_RESEND_SUCCESS:
+        console.log(action.payload.data);
             return {
                 ...state,
                 loading: true,
@@ -213,7 +214,7 @@ export const reducer = (state = initialState, action) => {
                     id: action.payload.data.id,
                 },
             }
-        // 이메일 인증 에러
+        // 이메일 인증 다시보내기 에러
         case GET_AUTH_RESEND_ERROR:
             return {
                 ...state,

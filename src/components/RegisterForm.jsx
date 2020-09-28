@@ -63,8 +63,9 @@ const RegisterForm = () => {
 
     // 이메일인증 메일 다시보내기
     const onClickReAuth = useCallback(() => {
+        console.log('this is regState.id :', regState.id);
         dispatch(emailReAuth(regState.id, email));
-    }, [email]);
+    }, [email, regState]);
 
     // 비밀번호 동일 확인
     useEffect(() => {
