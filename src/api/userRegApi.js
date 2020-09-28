@@ -28,8 +28,8 @@ export const userRegSendApi = (email, nickName, password) => {
         url: 'http://3.34.200.65/userReg',
         data: {
             "email": email,
-            "password" : password,
-            "nickname" : nickName,
+            "password": password,
+            "nickname": nickName,
         }
     });
     return res;
@@ -41,6 +41,18 @@ export const authApi = (auth, id) => {
         url: `http://3.34.200.65/verify/${auth}`,
         data: {
             "id": id,
+        }
+    });
+    return res;
+}
+
+export const reAuthApi = (id, email) => {
+    const res = axios({
+        method: 'post',
+        url: 'http://3.34.200.65/resendMail',
+        data: {
+            "id": id,
+            "email": email,
         }
     });
     return res;

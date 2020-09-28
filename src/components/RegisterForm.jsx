@@ -3,30 +3,33 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Row, Col, Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined, EyeOutlined, ConsoleSqlOutlined, EyeTwoTone } from '@ant-design/icons';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Title } from './style/RegisterForm_Styled';
 
-import { nickNameCheck, emailCheck, userRegSend, auth } from '../modules/userReg';
+import { nickNameCheck, emailCheck, userRegSend, emailAuth, emailReAuth } from '../modules/userReg';
 
 const RegisterForm = () => {
+    const history = useHistory();
+
     const dispatch = useDispatch();
     const nickNameSelect = useSelector(state => state.userReg.check.nickName);
     const emailSelect = useSelector(state => state.userReg.check.email);
     const regState = useSelector(state => state.userReg.regStatus);
+    const authState = useSelector(state => state.userReg.authState);
 
     const [password, setPassword] = useState(null);
     const [passwordCheck, setPasswordCheck] = useState(null);
     const [passwordState, setPasswordState] = useState(false);
     const [auth, setAuth] = useState(null);
 
+    const [nickName, setNickName] = useState(null);
+    const [email, setEmail] = useState(null);
     const [check, setCheck] = useState({
         nickNameState: false,
         emailState: false,
     });
-    const [nickName, setNickName] = useState(null);
-    const [email, setEmail] = useState(null);
     
     // 회원가입 버튼 클릭
     const onFinish = useCallback(e => {
@@ -55,15 +58,20 @@ const RegisterForm = () => {
 
     // 이메일인증
     const onClickAuth = useCallback(() => {
-        console.log(auth);
-        dispatch(auth(auth, regState.id));
+        dispatch(emailAuth(auth, regState.id));
     }, [auth]);
+
+    // 이메일인증 메일 다시보내기
+    const onClickReAuth = useCallback(() => {
+        dispatch(emailReAuth(regState.id, email));
+    }, [email]);
 
     // 비밀번호 동일 확인
     useEffect(() => {
         password === passwordCheck ? setPasswordState(true) : setPasswordState(false);
     }, [password, passwordCheck, passwordState]);
 
+    // 닉네임 중복 확인 useState
     useEffect(() => {
         if(nickNameSelect === false) {
             alert('이미 사용중인 닉네임 입니다.');
@@ -74,6 +82,7 @@ const RegisterForm = () => {
         } else console.log('nickNameSelect error');
     }, [nickNameSelect]);
 
+    // 이메일 중복 확인 useState
     useEffect(() => {
         if(emailSelect === false) {
             alert('이미 사용중인 이메일 입니다.');
@@ -84,9 +93,10 @@ const RegisterForm = () => {
         } else console.log('emailSelect error');
     }, [emailSelect]);
 
-    useEffect(() => {
-        console.log('regState!!!!!! ', regState.id === null ? "null" : regState.id);
-    }, [regState]);
+    // 이메일 인증 성공 후 리다이렉트
+    useEffect(()=>{
+        authState.data === true ? history.push('/') : console.log('authState : ', authState);
+    },[authState]);
 
     return (
         <Row style={{ marginTop: 100 }}>
@@ -184,7 +194,8 @@ const RegisterForm = () => {
                                 style={{ borderRadius: 10 }}
                             />
                             <Button style={{ margin: '20px 0 0 0' }} onClick={onClickAuth}>완료</Button>
-                        </div> : console.log('null')
+                            <Button style={{ margin: '20px 0 0 10px' }} onClick={onClickReAuth}>인증번호 재발송</Button>
+                        </div> : null
                 }
 
             </Col>

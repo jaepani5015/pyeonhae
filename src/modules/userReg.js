@@ -1,4 +1,4 @@
-import { emailCheckApi, nickNameCheckApi, userRegSendApi, authApi } from '../api/userRegApi';
+import { emailCheckApi, nickNameCheckApi, userRegSendApi, authApi, reAuthApi } from '../api/userRegApi';
 
 // action type
 // 닉네임 체크
@@ -20,6 +20,11 @@ const GET_USERREG_CHECK_ERROR = 'GET_USERREG_CHECK_ERROR';
 const GET_AUTH_CHECK = 'GET_AUTH_CHECK';
 const GET_AUTH_CHECK_SUCCESS = 'GET_AUTH_CHECK_SUCCESS';
 const GET_AUTH_CHECK_ERROR = 'GET_AUTH_CHECK_ERROR';
+
+// 이메일 인증 다시보내기
+const GET_AUTH_RESEND = 'GET_AUTH_RESEND';
+const GET_AUTH_RESEND_SUCCESS = 'GET_AUTH_RESEND_SUCCESS';
+const GET_AUTH_RESEND_ERROR = 'GET_AUTH_RESEND_ERROR';
 
 // redux-thunk 함수생성
 // nickname check
@@ -59,7 +64,7 @@ export const userRegSend = (email, nickName, password) => async dispatch => {
 }
 
 // 이메일 인증
-export const auth = (auth, id) => async dispatch => {
+export const emailAuth = (auth, id) => async dispatch => {
     const payload = await authApi(auth, id);
 
     dispatch({ type: GET_AUTH_CHECK });
@@ -67,6 +72,18 @@ export const auth = (auth, id) => async dispatch => {
         dispatch({ type: GET_AUTH_CHECK_SUCCESS, payload });
     } catch (e) {
         dispatch({ type: GET_AUTH_CHECK_ERROR, error: e });
+    }
+}
+
+// 이메일 인증 다시보내기
+export const emailReAuth = (id, email) => async dispatch => {
+    const payload = await reAuthApi(id, email);
+
+    dispatch({ type: GET_AUTH_RESEND });
+    try {
+        dispatch({ type: GET_AUTH_RESEND_SUCCESS, payload });
+    } catch (e) {
+        dispatch({ type: GET_AUTH_RESEND_ERROR, error: e });
     }
 }
 
@@ -82,7 +99,7 @@ const initialState = {
         email: null,
         id: null,
     },
-    emailAuth: null,
+    authState: false,
 }
 
 export const reducer = (state = initialState, action) => {
@@ -161,13 +178,48 @@ export const reducer = (state = initialState, action) => {
 
         // 이메일 인증
         case GET_AUTH_CHECK:
-            return {}
+            return {
+                ...state,
+                loading: true,
+            }
         // 이메일 인증 성공
         case GET_AUTH_CHECK_SUCCESS:
-            return {}
+            return {
+                ...state,
+                loading: true,
+                authState: action.payload,
+            }
         // 이메일 인증 에러
         case GET_AUTH_CHECK_ERROR:
-            return {}
+            return {
+                ...state,
+                loading: true,
+                error: action.error,
+            }
+
+        // 이메일 인증 다시보내기
+        case GET_AUTH_RESEND:
+            return {
+                ...state,
+                loading: true,
+            }
+        // 이메일 인증 성공
+        case GET_AUTH_RESEND_SUCCESS:
+            return {
+                ...state,
+                loading: true,
+                regStatus: {
+                    email: action.payload.data.email,
+                    id: action.payload.data.id,
+                },
+            }
+        // 이메일 인증 에러
+        case GET_AUTH_RESEND_ERROR:
+            return {
+                ...state,
+                loading: true,
+                error: action.error,
+            }
         default: return state;
     }
 }
