@@ -20,10 +20,10 @@ function App() {
         <Home />
       </Route>
 
-      <Route exact path='/newProduct'>
+      {/* <Route exact path='/newProduct'>
         <AppLayout />
         <NewProduct />
-      </Route>
+      </Route> */}
 
       <Route exact path='/login'>
         <Login />

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Col, Row } from 'antd';
+import { Col, Row, Input } from 'antd';
 
 export const Row_Store = styled(Row)`
     height: auto;
@@ -133,3 +133,8 @@ export const Span_Title = styled.span`
 export const Span = styled.span`
     font-size: 15px;
 `;
+
+export const InputSearch = styled(Input.Search)`
+    width : ${props => props.size < 420 ? '160px' : '600px'};
+    margin-left : ${props => props.size < 420 ? '0' : '90px'};
+`
