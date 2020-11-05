@@ -18,7 +18,7 @@ import {
     FooterPrice,
 } from './style/Gs_Styeld';
 
-const Gs = () => {
+const Gs = (data) => {
     return (
         <Div_wrap>
             {/* 상단 로고 행사 안내 */}
@@ -35,16 +35,16 @@ const Gs = () => {
 
             {/* 제품 */}
             <Content>
-                <ProductImg src='./image/cu_product.jpg' title='store product image' />
+                <ProductImg src={data.data.imageURL} title='store product image' />
             </Content>
 
             {/* 제품설명 */}
             <Footer>
-                <FooterTitle>롯데푸드)요구하이 145ml</FooterTitle>
+                <FooterTitle>{data.data.title}</FooterTitle>
                 <StarWrap>
-                    <Star value={3.5} size={17} isHalf={true} edit={false} />
+                    <Star value={data.data.rating} size={17} isHalf={true} edit={false} />
                 </StarWrap>
-                <FooterPrice>1,000원</FooterPrice>
+                <FooterPrice>{data.data.price}</FooterPrice>
             </Footer>
         </Div_wrap>
     );

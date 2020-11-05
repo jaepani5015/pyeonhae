@@ -18,10 +18,6 @@ const Event = () => {
     const size = useWindowSize();
     const dispatch = useDispatch();
     const selectSaleItem = useSelector((state) => state.saleItem.data);
-    useEffect(() => {
-        console.log('selector!!!!!');
-        console.log(selectSaleItem);
-    }, [selectSaleItem]);
 
     const [opo, setOpo] = useState(true);
     const [tpo, setTpo] = useState(false);
@@ -150,20 +146,20 @@ const Event = () => {
                     {selectSaleItem.map(e => {
                         if (e.brand === "CU") {
                             return <Col xs={12} md={6}>
-                                <Link to={`/detailProduct/${1}`}>
-                                    <Cu />
+                                <Link to={`/detailProduct/${e.id}`}>
+                                    <Cu data={e} />
                                 </Link>
                             </Col>;
                         } else if (e.brand === "GS25") {
                             return <Col xs={12} md={6}>
-                                <Link to={`/detailProduct/${1}`}>
-                                    <Gs />
+                                <Link to={`/detailProduct/${e.id}`}>
+                                    <Gs data={e} />
                                 </Link>
                             </Col>;
                         } else {
                             return <Col xs={12} md={6}>
-                                <Link to={`/detailProduct/${1}`}>
-                                    <Seven />
+                                <Link to={`/detailProduct/${e.id}`}>
+                                    <Seven data={e} />
                                 </Link>
                             </Col>;
                         }

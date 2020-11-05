@@ -2,14 +2,14 @@ import styled from 'styled-components';
 
 export const Div_wrap = styled.div`
     width: 200px;
-    height: 330px;
+    height: 350px;
     border: 2px solid #1A9429;
     border-radius: 10px;
     box-shadow: 5px 5px 5px #eaeaea;
 
     @media only screen and (max-width: 768px) {
         width: 170px;
-        height: 310px;
+        height: 330px;
     }
 `;
 
@@ -75,12 +75,12 @@ export const ProductImg = styled.img`
     height: auto;
     position: relative;
     left: 55px;
-    top: 6px;
+    top: 30px;
 
     @media only screen and (max-width: 768px) {
         width: 80px;
         left: 45px;
-        top: 10px;
+        top: 40px;
     }
 `;
 
