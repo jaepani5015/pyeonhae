@@ -5,6 +5,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginAction } from '../modules/user';
+import { getSaleAction } from "../modules/saleItem";
 
 import {
     Title,
@@ -22,6 +23,7 @@ const LoginForm = () => {
     const onFinish = useCallback(e => {
         console.log(e);
         dispatch(loginAction(e.userEmail, e.userPassword));
+        // dispatch(getSaleAction());
     }, []);
 
     useEffect(() => {

@@ -80,11 +80,33 @@ const initialState = {
     }
 };
 
-
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
         // 유저 로그인 시도
         case GET_USER_LOGIN:
+        // 유저 로그인 성공
+        case GET_USER_LOGIN_SUCCESS:
+        // 유저 로그인 실패
+        case GET_USER_LOGIN_ERROR:
+        // 유저 로그아웃
+        case GET_USER_LOGOUT:
+        // 유저 삭제
+        case GET_USER_DELETE:
+        // 유저 삭제 성공
+        case GET_USER_DELETE_SUCCESS:
+        // 유저 삭제 에러
+        case GET_USER_DELETE_ERROR:
+
+        default: return state;
+    }
+}
+
+/*
+export const reducer = (state = initialState, action) => {
+    switch (action.type) {
+        // 유저 로그인 시도
+        case GET_USER_LOGIN:
+            console.log('login action reducer');
             return {
                 ...state,
                 loading: true,
@@ -214,5 +236,6 @@ export const reducer = (state = initialState, action) => {
         default: return state;
     }
 }
+*/
 
 export default reducer;
