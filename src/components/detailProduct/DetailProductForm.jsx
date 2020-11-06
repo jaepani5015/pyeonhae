@@ -9,6 +9,10 @@ import Star from 'react-rating-stars-component';
 import { useSelector, useDispatch } from 'react-redux';
 import { viewItem, replyList } from '../../modules/viewItem';
 
+
+import { Row, Col } from 'antd';
+import { useParams, useHistory } from 'react-router-dom';
+
 import {
     Div_wrap,
     BackBtn,
@@ -23,36 +27,39 @@ import {
     CommentList_wrap,
 } from './style/DetailProduct_Styled';
 
-import { Row, Col } from 'antd';
-import { useParams, useHistory } from 'react-router-dom';
-
 const DetailProductForm = () => {
     const { id } = useParams();
     const history = useHistory();
 
     const login = useSelector((state) => state.user.isLoggedIn);
     const itemList = useSelector((state) => state.saleItem.data);
+    const reply = useSelector((state) => state.viewItem.reply);
+    const replyLoading = useSelector((state) => state.viewItem.replyLoading);
     const dispatch = useDispatch();
 
     const onClickBack = useCallback(e => {
         history.goBack();
     }, []);
 
+    // 제품관련 정보 state (제품명, 이미지, 별점 등..)
     const [state, setState] = useState(null)
 
     useEffect(() => {
         window.scrollTo(0, 0);
+
         dispatch(viewItem(id));
         dispatch(replyList(id));
         itemList.map(e => e.id === id ? setState(e) : null);
     }, []);
 
-    useEffect(() => {
-        console.log('STATE : ', state);
-        console.log('State rating : ', state !== null ? parseInt(state.rating) : null);
-    }, [state]);
+    // useEffect(() => {
+    //     console.log("##############################");
+    //     console.log(reply);
+    //     console.log(replyLoading);
+    // }, [replyLoading === true]);
 
     return (
+        state === null ? <p>loading...</p> :
         <Row>
             <Col xs={1} md={5} />
             <Col xs={22} md={14}>
@@ -61,11 +68,11 @@ const DetailProductForm = () => {
                         뒤로가기 <RollbackOutlined />
                     </BackBtn>
                     <MainImg_wrap>
-                        <MainImg src={state !== null ? state.imageURL : null} title='store product image' />
+                        <MainImg src={state.imageURL} title='store product image' />
                     </MainImg_wrap>
-                    <Title>{state !== null ? state.title : null}</Title>
-                    <Star value={state !== null ? state.rating : 1} size={20} isHalf={true} edit={false} />
-                    <Price>{state !== null ? state.price : null}</Price>
+                    <Title>{state.title}</Title>
+                    <Star value={state.rating} size={20} isHalf={true} edit={false} />
+                    <Price>{state.price}</Price>
                     <Hr />
                     <Comment_wrap>
                         {/* 댓글작성 폼 래핑 */}
@@ -79,7 +86,7 @@ const DetailProductForm = () => {
                         <Span>댓글</Span>
                         {/* 댓글리스트 폼 래핑 */}
                         <CommentList_wrap>
-                            <CommentList />
+                            <CommentList replyData={replyLoading === true ? reply : false} />
                         </CommentList_wrap>
                     </Comment_wrap>
                 </Div_wrap>

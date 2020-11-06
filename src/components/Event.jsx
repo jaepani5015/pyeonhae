@@ -67,7 +67,6 @@ const Event = () => {
 
     // 첫 화면 로딩시 출력할 제품리스트 dispatchs
     useEffect(() => {
-        console.log('hi this is Event.jsx useEffect');
         dispatch(getSaleAction());
     }, []);
 

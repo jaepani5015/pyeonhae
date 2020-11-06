@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
     UserNickName,
@@ -6,20 +6,19 @@ import {
     Hr,
 } from './style/CommentList_Styled';
 
-const CommnentList = () => {
-    return(
-        <>
-            <UserNickName>재파니</UserNickName>
-            <UserComment>
-                hellohellohellohellohellohellohellohello
-                hellohellohellohellohellohellohellohello
-                hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
-                hellohellohellohellohellohellohellohello
-                hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
-                hellohellohellohellohellohellohellohello
-            </UserComment>
-            <Hr />
-        </>
+const CommnentList = (reply) => {
+    return (
+        reply.replyData === false ? <p>loading...</p> :
+            <>
+            {
+                reply.replyData.map(e => 
+                    <>
+                        <UserNickName>{e.nickName}</UserNickName>
+                        <UserComment>{e.comment}</UserComment>
+                        <Hr />
+                    </>)
+            }
+            </>
     );
 }
 
