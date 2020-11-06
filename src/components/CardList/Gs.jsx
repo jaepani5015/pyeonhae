@@ -26,11 +26,11 @@ const Gs = (data) => {
                 <Logo>
                     <LogoImg src='./image/logo/logo_gs.png' title='store logo gs' />
                 </Logo>
-                <Event>
+                {/* <Event>
                     <EventImg>
                         <EventSpan>1+1</EventSpan>
                     </EventImg>
-                </Event>
+                </Event> */}
             </Header>
 
             {/* 제품 */}

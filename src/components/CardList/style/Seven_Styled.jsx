@@ -74,7 +74,7 @@ export const ProductImg = styled.img`
     width: 90px;
     height: auto;
     position: relative;
-    left: 55px;
+    left: -15px;
     top: 30px;
 
     @media only screen and (max-width: 768px) {

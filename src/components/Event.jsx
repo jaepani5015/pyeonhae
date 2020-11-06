@@ -10,7 +10,7 @@ import { Row, Col, Menu, Dropdown } from 'antd';
 import { UnorderedListOutlined, DownOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getSaleAction, getSaleAction2, getSaleAction3 } from '../modules/saleItem';
+import { getSaleAction } from '../modules/saleItem';
 
 import { Span } from './style/Event_Styled';
 
@@ -18,13 +18,22 @@ const Event = () => {
     const size = useWindowSize();
     const dispatch = useDispatch();
     const selectSaleItem = useSelector((state) => state.saleItem.data);
+    // 선택 브랜드 selector로 가져오기
+    const selectBrand = useSelector((state) => state.brand.selectBrand);
+    // 검색한 데이터 가져오기
+    const selectSearchData = useSelector((state) => state.brand.searchValue);
 
-    const [opo, setOpo] = useState(true);
+    useEffect(() => {
+        console.log("11111111111111111111111111");
+        console.log(selectBrand, selectSearchData);
+    }, [selectBrand, selectSearchData])
+
+    const [opo, setOpo] = useState(false);
     const [tpo, setTpo] = useState(false);
-    const [all, setAll] = useState(false);
+    const [all, setAll] = useState(true);
 
     // category : default -> "" 빈 값, order : default -> "popular"(인기순)
-    const [category, setCategory] = useState("");
+    const [category, setCategory] = useState("showAll");
     const [order, setOrder] = useState("popular");
 
     // 1+1클릭 이벤트
@@ -32,7 +41,6 @@ const Event = () => {
         setOpo(!opo);
         setTpo(false);
         setAll(false);
-        dispatch(getSaleAction2());
     }, [opo, tpo, all]);
 
     // 2+1클릭 이벤트
@@ -40,7 +48,6 @@ const Event = () => {
         setTpo(!tpo);
         setOpo(false);
         setAll(false);
-        dispatch(getSaleAction3());
     }, [opo, tpo, all]);
 
     // all클릭 이벤트
@@ -60,16 +67,56 @@ const Event = () => {
         setOrder(e.key);
     }, [order]);
 
-    // useEffect(() => {
-    //     // console.log(event);
-    //     console.log(category, order);
-    // }, [opo, tpo, category, order]);
-
+    
     // 첫 화면 로딩시 출력할 제품리스트 dispatchs
     useEffect(() => {
-        dispatch(getSaleAction());
-    }, []);
+        // 카테고리 파싱
+        let changeCategory = "";
+        if (category === "showAll") { changeCategory = "" }
+        else if (category === "drink") { changeCategory = "음료" }
+        else if (category === "snack") { changeCategory = "과자" }
+        else if (category === "food") { changeCategory = "식품" }
+        else if (category === "icecream") { changeCategory = "아이스크림" }
+        else if (category === "suplies") { changeCategory = "생활용품" }
+        else { changeCategory = "" }
 
+        // 삼항연산자 적용이 안됨...
+        // category === "showAll" ? changeCategory = "전체보기" : null
+        // category === "drink" ? changeCategory = "음료" : 
+        // category === "snack" ? changeCategory = "과자" : 
+        // category === "food" ? changeCategory = "식품" : 
+        // category === "icecream" ? changeCategory = "아이스크림" : 
+        // category === "suplies" ? changeCategory = "생활용품" : "";
+        
+        // // 1+1, 2+1 파싱
+        let arr = [];
+        if(opo === true && tpo === false && all === false) {
+            arr.push("1+1")
+        } else if(tpo === true && opo === false && all === false) {
+            arr.push("2+1")
+        } else if(all === true && tpo === false && opo === false){
+            arr.push("1+1", "2+1")
+        } else arr.push("")
+
+        // // 조회방법 파싱
+        let changeView = 0;
+        if(order === "popular") changeView = 0;
+        else if(order === "views") changeView = 1;
+        else if(order === "rating") changeView = 2;
+        // 삼항연산자 적용이 안됨...
+        // order === "popular" ? changeView = 0 : 
+        // order === "views" ? changeView = 1 : 
+        // order === "rating" ? changeView = 2 : 0;
+
+        dispatch(getSaleAction(selectBrand, changeCategory, selectSearchData, JSON.stringify(arr), changeView, 1));
+        // console.log('############ : ', changeCategory, arr, changeView);
+    }, [opo, tpo, all, category, order, selectBrand, selectSearchData]);
+    
+    useEffect(() => {
+        // console.log(event);
+        // console.log(category, order, all);
+    }, [opo, tpo, all, category, order]);
+    
     const categoryList = (
         <Menu onClick={onClickCategory}>
             <Menu.Item key="showAll">전체보기</Menu.Item>
@@ -113,7 +160,7 @@ const Event = () => {
                                         <span>카테고리 <DownOutlined /></span>
                                     </Dropdown>
                                 </Col>
-                                <Col xs={3}>
+                                <Col xs={3}>    
                                     <Dropdown overlay={orderList} trigger={['click']}>
                                         <UnorderedListOutlined />
                                     </Dropdown>

@@ -26,11 +26,11 @@ const Cu = (data) => {
                 <Logo>
                     <LogoImg src='./image/logo/logo_cu.png' title='store logo cu' />
                 </Logo>
-                <Event>
+                {/* <Event>
                     <EventImg>
                         <EventSpan>1+1</EventSpan>
                     </EventImg>
-                </Event>
+                </Event> */}
             </Header>
 
             {/* 제품 */}

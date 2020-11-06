@@ -134,7 +134,7 @@ export const Span = styled.span`
     font-size: 15px;
 `;
 
-export const InputSearch = styled(Input.Search)`
+export const InputSearch = styled(Input)`
     width : ${props => props.size < 420 ? '160px' : '600px'};
     margin-left : ${props => props.size < 420 ? '0' : '90px'};
 `

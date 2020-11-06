@@ -4,6 +4,7 @@ import { Col, Row, Input } from "antd";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutAction } from "../modules/user";
+import { inputBrandName, inputSearchValue } from '../modules/brand';
 
 import useWindowSize from "../hooks/useWindowSize";
 import Barcode from "react-barcode";
@@ -32,9 +33,9 @@ import {
   Span,
   InputSearch
 } from "./style/AppLayout_Styeld";
+// import Seven from "./cardList/Seven";
 
 const AppLayout = () => {
-  // 리덕스 start
   const selectLogin = useSelector((state) => state.user.isLoggedIn);
 
   const dispatch = useDispatch();
@@ -43,13 +44,6 @@ const AppLayout = () => {
     dispatch(logoutAction());
   }, []);
 
-  // 제품검색 디스패치
-  const searchItem = useCallback(() => {
-    dispatch();
-  }, []);
-  // 리덕스 end
-
-  // const [getLoginState, seTgetLoginState] = useState(selectLogin);
   const [loginState, setLoginState] = useState(selectLogin);
   const size = useWindowSize();
 
@@ -64,88 +58,83 @@ const AppLayout = () => {
   const [kt, setKt] = useState(null);
   const [lgu, setLgu] = useState(null);
   const [barcode, setBarcode] = useState(null);
-  const [searchProduct, setSearchProduct] = useState(null);
+  const [searchProduct, setSearchProduct] = useState("");
+  // 브랜드 선택 파싱 저장 useState
+  const [changeBrand, setChangeBrand] = useState("CU");
 
-  const onClickCu = useCallback(
-    (e) => {
-      setCu(!cu);
-    },
-    [cu]
-  );
+  // cu선택
+  const onClickCu = useCallback((e) => {
+    setCu(!cu);
+  }, [cu]);
 
-  const onClickGs25 = useCallback(
-    (e) => {
-      setgs25(!gs25);
-    },
-    [gs25]
-  );
+  // gs선택
+  const onClickGs25 = useCallback((e) => {
+    setgs25(!gs25);
+  }, [gs25]);
 
-  const onClick7eleven = useCallback(
-    (e) => {
-      set7eleven(!_7eleven);
-    },
-    [_7eleven]
-  );
+  // seven선택
+  const onClick7eleven = useCallback((e) => {
+    set7eleven(!_7eleven);
+  }, [_7eleven]);
 
-  const onClickMenu = useCallback(
-    (e) => {
-      setMenu(!menu);
-    },
-    [menu]
-  );
+  const onClickMenu = useCallback((e) => {
+    setMenu(!menu);
+  }, [menu]);
 
-  const onClickSKT = useCallback(
-    (e) => {
-      setSktWrap(!sktWrap);
-    },
-    [sktWrap]
-  );
+  const onClickSKT = useCallback((e) => {
+    setSktWrap(!sktWrap);
+  }, [sktWrap]);
 
-  const onClickKT = useCallback(
-    (e) => {
-      setKtWrap(!ktWrap);
-    },
-    [ktWrap]
-  );
+  const onClickKT = useCallback((e) => {
+    setKtWrap(!ktWrap);
+  }, [ktWrap]);
 
-  const onClickLGU = useCallback(
-    (e) => {
-      setLguWrap(!lguWrap);
-    },
-    [lguWrap]
-  );
+  const onClickLGU = useCallback((e) => {
+    setLguWrap(!lguWrap);
+  }, [lguWrap]);
 
-  const onChangeBarcode = useCallback(
-    (e) => {
-      setBarcode(e.target.value);
-    },
-    [barcode]
-  );
+  const onChangeBarcode = useCallback((e) => {
+    setBarcode(e.target.value);
+  }, [barcode]);
 
-  const onClickSaveBarcode = useCallback(
-    (e) => {
-      localStorage.setItem(e.target.name, barcode);
-      e.target.name === "skt"
-        ? setSkt(barcode)
-        : "kt"
-        ? setKt(barcode)
-        : "lgu"
-        ? setLgu(barcode)
-        : console.log("error");
-    },
-    [barcode]
-  );
+  const onClickSaveBarcode = useCallback((e) => {
+    localStorage.setItem(e.target.name, barcode);
+    e.target.name === "skt" ?
+      setSkt(barcode) : "kt" ?
+        setKt(barcode) : "lgu" ?
+          setLgu(barcode) : console.log("error");
+  }, [barcode]);
 
-  const onClickDeleteBarcode = useCallback(
-    (e) => {
-      localStorage.removeItem(e.target.id);
-      if (e.target.id === "skt") setSkt(null);
-      if (e.target.id === "kt") setKt(null);
-      if (e.target.id === "lgu") setLgu(null);
-      console.log(skt, kt, lgu);
-    },
-    [skt, kt, lgu]
-  );
+  const onClickDeleteBarcode = useCallback((e) => {
+    localStorage.removeItem(e.target.id);
+    if (e.target.id === "skt") setSkt(null);
+    if (e.target.id === "kt") setKt(null);
+    if (e.target.id === "lgu") setLgu(null);
+    console.log(skt, kt, lgu);
+  }, [skt, kt, lgu]);
+
+  // 브랜드 선택 데이터 파싱 effect
+  useEffect(() => {
+    if(cu === true && gs25 === false && _7eleven === false) setChangeBrand("CU");
+    else if(gs25 === true && cu === false && _7eleven === false) setChangeBrand("GS25");
+    else if(_7eleven === true && cu === false && gs25 === false) setChangeBrand("SEVEN_ELEVEN");
+
+    else if(cu === true && gs25 === true && _7eleven === false) setChangeBrand("CU GS25");
+    else if(cu === false && gs25 === true && _7eleven === true) setChangeBrand("GS25 SEVEN_ELEVEN");
+    else if(cu === true && gs25 === false && _7eleven === true) setChangeBrand("CU SEVEN_ELEVEN");
+
+    else if(cu === true && gs25 === true && _7eleven === true) setChangeBrand("CU GS25 SEVEN_ELEVEN");
+  }, [cu, gs25, _7eleven]);
+
+  // 브랜드 선택 dispatch
+  useEffect(() => {
+    dispatch(inputBrandName(changeBrand));
+  }, [changeBrand]);
+
+  // 제품검색 dispatch
+  useEffect(() => {
+    dispatch(inputSearchValue(searchProduct));
+  }, [searchProduct]);
 
   useEffect(() => {
     setLoginState(selectLogin);
@@ -216,13 +205,13 @@ const AppLayout = () => {
                 />
               </>
             ) : // 데스크탑 화면에서
-            loginState === false ? (
-              <Link style={{ color: "black" }} to="/login">
-                <Span>로그인</Span>
-              </Link>
-            ) : (
-              <Span onClick={onClickLogout}>로그아웃</Span>
-            )}
+              loginState === false ? (
+                <Link style={{ color: "black" }} to="/login">
+                  <Span>로그인</Span>
+                </Link>
+              ) : (
+                  <Span onClick={onClickLogout}>로그아웃</Span>
+                )}
           </Col_Login>
         </Row>
 
@@ -236,8 +225,8 @@ const AppLayout = () => {
                   <LiContent>로그인</LiContent>
                 </Link>
               ) : (
-                <LiContent onClick={onClickLogout}>로그아웃</LiContent>
-              )}
+                  <LiContent onClick={onClickLogout}>로그아웃</LiContent>
+                )}
             </Li>
 
             {/* 할인 바코드 */}
@@ -259,13 +248,13 @@ const AppLayout = () => {
                     />
                   </>
                 ) : (
-                  <>
-                    <Barcode value={skt} />
-                    <BarcodeDelete onClick={onClickDeleteBarcode} id="skt">
-                      삭제
+                    <>
+                      <Barcode value={skt} />
+                      <BarcodeDelete onClick={onClickDeleteBarcode} id="skt">
+                        삭제
                     </BarcodeDelete>
-                  </>
-                )}
+                    </>
+                  )}
               </SKTBarcodeWrap>
             </Li>
             <Li>
@@ -285,13 +274,13 @@ const AppLayout = () => {
                     />
                   </>
                 ) : (
-                  <>
-                    <Barcode value={kt} />
-                    <BarcodeDelete onClick={onClickDeleteBarcode} id="kt">
-                      삭제
+                    <>
+                      <Barcode value={kt} />
+                      <BarcodeDelete onClick={onClickDeleteBarcode} id="kt">
+                        삭제
                     </BarcodeDelete>
-                  </>
-                )}
+                    </>
+                  )}
               </KTBarcodeWrap>
             </Li>
             <Li>
@@ -311,13 +300,13 @@ const AppLayout = () => {
                     />
                   </>
                 ) : (
-                  <>
-                    <Barcode value={lgu} />
-                    <BarcodeDelete onClick={onClickDeleteBarcode} id="lgu">
-                      삭제
+                    <>
+                      <Barcode value={lgu} />
+                      <BarcodeDelete onClick={onClickDeleteBarcode} id="lgu">
+                        삭제
                     </BarcodeDelete>
-                  </>
-                )}
+                    </>
+                  )}
               </LGUBarcodeWrap>
             </Li>
           </Ul>
