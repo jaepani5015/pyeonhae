@@ -23,11 +23,6 @@ const Event = () => {
     // 검색한 데이터 가져오기
     const selectSearchData = useSelector((state) => state.brand.searchValue);
 
-    useEffect(() => {
-        console.log("11111111111111111111111111");
-        console.log(selectBrand, selectSearchData);
-    }, [selectBrand, selectSearchData])
-
     const [opo, setOpo] = useState(false);
     const [tpo, setTpo] = useState(false);
     const [all, setAll] = useState(true);
@@ -109,13 +104,7 @@ const Event = () => {
         // order === "rating" ? changeView = 2 : 0;
 
         dispatch(getSaleAction(selectBrand, changeCategory, selectSearchData, JSON.stringify(arr), changeView, 1));
-        // console.log('############ : ', changeCategory, arr, changeView);
     }, [opo, tpo, all, category, order, selectBrand, selectSearchData]);
-    
-    useEffect(() => {
-        // console.log(event);
-        // console.log(category, order, all);
-    }, [opo, tpo, all, category, order]);
     
     const categoryList = (
         <Menu onClick={onClickCategory}>
@@ -189,7 +178,7 @@ const Event = () => {
                             <Cu />
                         </Link>
                     </Col> */}
-                    {selectSaleItem.map(e => {
+                    {selectSaleItem[0].id === null ? <p>noData</p> : selectSaleItem.map(e => {
                         if (e.brand === "CU") {
                             return <Col xs={12} md={6}>
                                 <Link to={`/detailProduct/${e.id}`}>

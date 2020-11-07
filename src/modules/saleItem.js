@@ -37,19 +37,23 @@ const initalState = {
   ]
 };
 
+// data : action.payload.data.searchItemList
 export const reducer = (state = initalState, action) => {
   switch (action.type) {
     case GET_SALE_ITEM:
       console.log("GET_SALE_ITEM");
-      return state;
+      return { ...state }
 
-    case GET_SALE_ITEM_SUCCESS:
+    case GET_SALE_ITEM_SUCCESS: {
       console.log("GET_SALE_ITEM_SUCCESS");
-      // return state;
+      console.log(action.payload.data.searchItemList.forEach(e => typeof(e)));
       return {
         ...state,
-        data: action.payload.data.searchItemList,
+        // map은 새로운 배열을 반환하기 때문에 data에 다시 배열이 들어간다..
+        data: [...state.data, action.payload.data.searchItemList.forEach(e => e)]
       };
+      // return { ...state }
+    }
 
     case GET_SALE_ITEM_ERROR:
       console.log("GET_SALE_ITEM_ERROR");

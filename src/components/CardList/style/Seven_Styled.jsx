@@ -16,6 +16,7 @@ export const Div_wrap = styled.div`
 export const Header = styled.div`
     width: 100%;
     height: 45px;
+    position: relative;
 `;
 
 export const Logo = styled.div`
@@ -74,12 +75,13 @@ export const ProductImg = styled.img`
     width: 90px;
     height: auto;
     position: relative;
-    left: 55px;
+    left: -15px;
     top: 30px;
 
     @media only screen and (max-width: 768px) {
         width: 80px;
-        left: 45px;
+        height: auto;
+        left: -15px;
         top: 40px;
     }
 `;

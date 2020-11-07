@@ -117,13 +117,13 @@ const AppLayout = () => {
   useEffect(() => {
     if(cu === true && gs25 === false && _7eleven === false) setChangeBrand("CU");
     else if(gs25 === true && cu === false && _7eleven === false) setChangeBrand("GS25");
-    else if(_7eleven === true && cu === false && gs25 === false) setChangeBrand("SEVEN_ELEVEN");
+    else if(_7eleven === true && cu === false && gs25 === false) setChangeBrand("SEVEN-ELEVEN");
 
     else if(cu === true && gs25 === true && _7eleven === false) setChangeBrand("CU GS25");
-    else if(cu === false && gs25 === true && _7eleven === true) setChangeBrand("GS25 SEVEN_ELEVEN");
+    else if(cu === false && gs25 === true && _7eleven === true) setChangeBrand("GS25 SEVEN-ELEVEN");
     else if(cu === true && gs25 === false && _7eleven === true) setChangeBrand("CU SEVEN_ELEVEN");
 
-    else if(cu === true && gs25 === true && _7eleven === true) setChangeBrand("CU GS25 SEVEN_ELEVEN");
+    else if(cu === true && gs25 === true && _7eleven === true) setChangeBrand("CU GS25 SEVEN-ELEVEN");
   }, [cu, gs25, _7eleven]);
 
   // 브랜드 선택 dispatch

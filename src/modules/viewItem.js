@@ -56,7 +56,6 @@ export const reducer = (state = initialState, action) => {
 
         case GET_REPLY_LIST_CHECK_SUCCESS:
             console.log('GET_REPLY_LIST_CHECK_SUCCESS');
-            // console.log('REPLY_LIST : ', action.payload.data.searchItemList.map((e, index) => e);
             return {
                 ...state,
                 replyLoading : true,
