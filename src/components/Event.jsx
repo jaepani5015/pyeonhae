@@ -17,11 +17,19 @@ import { Span } from './style/Event_Styled';
 const Event = () => {
     const size = useWindowSize();
     const dispatch = useDispatch();
-    const selectSaleItem = useSelector((state) => state.saleItem.data);
+    const selectSaleItem = useSelector((state) => state.saleItem);
     // 선택 브랜드 selector로 가져오기
     const selectBrand = useSelector((state) => state.brand.selectBrand);
     // 검색한 데이터 가져오기
     const selectSearchData = useSelector((state) => state.brand.searchValue);
+    
+    useEffect(() => {
+        console.log("*&^%$#$%^&^%$//#endregion")
+        console.log(selectSaleItem);
+        // console.log(selectSaleItem.data[1]);
+        selectSaleItem.data[1] === undefined ? console.log("undefined") : console.log(selectSaleItem.data[1].forEach(e => console.log(e)))
+        // selectSaleItem[0].id === null ? selectSaleItem[1].forEach(e => console.log(e)) : console.log("object")
+    }, [selectSaleItem]);
 
     const [opo, setOpo] = useState(false);
     const [tpo, setTpo] = useState(false);
@@ -103,6 +111,7 @@ const Event = () => {
         // order === "views" ? changeView = 1 : 
         // order === "rating" ? changeView = 2 : 0;
 
+        // console.log(`selectBrand : ${selectBrand}, changeCategory : ${changeCategory}, selectSearchData : ${selectSearchData}, arr : ${arr}, changeView : ${changeView}, 1`)
         dispatch(getSaleAction(selectBrand, changeCategory, selectSearchData, JSON.stringify(arr), changeView, 1));
     }, [opo, tpo, all, category, order, selectBrand, selectSearchData]);
     
@@ -173,12 +182,9 @@ const Event = () => {
 
                 {/* 제품리스트 구역 */}
                 <Row style={{ width: '100%', height: '100%', marginTop: 10 }}>
-                    {/* <Col xs={12} md={6}>
-                        <Link to={`/detailProduct/${1}`}>
-                            <Cu />
-                        </Link>
-                    </Col> */}
-                    {selectSaleItem[0].id === null ? <p>noData</p> : selectSaleItem.map(e => {
+                    {/* {
+                    selectSaleItem.loading === false ? <p>loading...</p> :
+                    selectSaleItem[0].map(e => {
                         if (e.brand === "CU") {
                             return <Col xs={12} md={6}>
                                 <Link to={`/detailProduct/${e.id}`}>
@@ -198,20 +204,7 @@ const Event = () => {
                                 </Link>
                             </Col>;
                         }
-                    })}
-
-                    {/* <Col xs={12} md={6}>
-                        <Link to={`/detailProduct/${2}`}>
-                            <Gs />
-                        </Link>
-                    </Col>
-
-                    <Col xs={12} md={6}>
-                        <Link to={`/detailProduct/${3}`}>
-                            <Seven />
-                        </Link>
-                    </Col> */}
-
+                    })} */}
                 </Row>
             </Col>
             <Col xs={1} md={5} />

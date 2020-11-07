@@ -16,6 +16,7 @@ export const getSaleAction = (brand, category, keyword, type, view, page) => asy
 };
 
 const initalState = {
+  loading : false,
   data: [
     {
       id: null,
@@ -46,13 +47,12 @@ export const reducer = (state = initalState, action) => {
 
     case GET_SALE_ITEM_SUCCESS: {
       console.log("GET_SALE_ITEM_SUCCESS");
-      console.log(action.payload.data.searchItemList.forEach(e => typeof(e)));
       return {
         ...state,
+        // loading: true,
         // map은 새로운 배열을 반환하기 때문에 data에 다시 배열이 들어간다..
-        data: [...state.data, action.payload.data.searchItemList.forEach(e => e)]
+        data: [...state.data, action.payload.data.searchItemList]
       };
-      // return { ...state }
     }
 
     case GET_SALE_ITEM_ERROR:
