@@ -8,7 +8,7 @@ export const saleItem = (brand, category, keyword, type, view, page) => {
       brand: brand,
       category: category,
       keyword: keyword,
-      type: JSON.parse(type),
+      type: type,
       view: view,
       page: page,
     },

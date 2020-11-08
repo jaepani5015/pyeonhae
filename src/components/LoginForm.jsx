@@ -23,7 +23,6 @@ const LoginForm = () => {
     const onFinish = useCallback(e => {
         console.log(e);
         dispatch(loginAction(e.userEmail, e.userPassword));
-        // dispatch(getSaleAction());
     }, []);
 
     useEffect(() => {

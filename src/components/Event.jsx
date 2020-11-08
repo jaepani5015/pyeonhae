@@ -22,13 +22,9 @@ const Event = () => {
     const selectBrand = useSelector((state) => state.brand.selectBrand);
     // 검색한 데이터 가져오기
     const selectSearchData = useSelector((state) => state.brand.searchValue);
-    
+
     useEffect(() => {
-        console.log("*&^%$#$%^&^%$//#endregion")
         console.log(selectSaleItem);
-        // console.log(selectSaleItem.data[1]);
-        selectSaleItem.data[1] === undefined ? console.log("undefined") : console.log(selectSaleItem.data[1].forEach(e => console.log(e)))
-        // selectSaleItem[0].id === null ? selectSaleItem[1].forEach(e => console.log(e)) : console.log("object")
     }, [selectSaleItem]);
 
     const [opo, setOpo] = useState(false);
@@ -70,51 +66,63 @@ const Event = () => {
         setOrder(e.key);
     }, [order]);
 
-    
+    const [parsing, setParsing] = useState({
+        loading: false,
+        selectBrand: selectBrand,
+        changeCategory: "",
+        selectSearchData: selectSearchData,
+        arr: ["1+1","2+1"],
+        changeView: 0,
+        page: 1
+    })
+
     // 첫 화면 로딩시 출력할 제품리스트 dispatchs
     useEffect(() => {
-        // 카테고리 파싱
-        let changeCategory = "";
-        if (category === "showAll") { changeCategory = "" }
-        else if (category === "drink") { changeCategory = "음료" }
-        else if (category === "snack") { changeCategory = "과자" }
-        else if (category === "food") { changeCategory = "식품" }
-        else if (category === "icecream") { changeCategory = "아이스크림" }
-        else if (category === "suplies") { changeCategory = "생활용품" }
-        else { changeCategory = "" }
+        setParsing({ loading: true })
+        if (category === "showAll") { setParsing({ ...parsing, changeCategory: "" }) }
+        else if (category === "drink") { setParsing({ ...parsing, changeCategory: "음료" }) }
+        else if (category === "snack") { setParsing({ ...parsing, changeCategory: "과자" }) }
+        else if (category === "food") { setParsing({ ...parsing, changeCategory: "식품" }) }
+        else if (category === "icecream") { setParsing({ ...parsing, changeCategory: "아이스크림" }) }
+        else if (category === "suplies") { setParsing({ ...parsing, changeCategory: "생활용품" }) }
+        else { setParsing({ ...parsing, changeCategory: "" }) }
+    }, [category]);
 
-        // 삼항연산자 적용이 안됨...
-        // category === "showAll" ? changeCategory = "전체보기" : null
-        // category === "drink" ? changeCategory = "음료" : 
-        // category === "snack" ? changeCategory = "과자" : 
-        // category === "food" ? changeCategory = "식품" : 
-        // category === "icecream" ? changeCategory = "아이스크림" : 
-        // category === "suplies" ? changeCategory = "생활용품" : "";
-        
-        // // 1+1, 2+1 파싱
-        let arr = [];
-        if(opo === true && tpo === false && all === false) {
-            arr.push("1+1")
-        } else if(tpo === true && opo === false && all === false) {
-            arr.push("2+1")
-        } else if(all === true && tpo === false && opo === false){
-            arr.push("1+1", "2+1")
-        } else arr.push("")
+    useEffect(() => {
+        setParsing({ loading: true })
+        if (opo === true && tpo === false && all === false) {
+            setParsing({ ...parsing, arr: ["1+1"] })
+        } else if (tpo === true && opo === false && all === false) {
+            setParsing({ ...parsing, arr: ["2+1"] })
+        } else if (all === true && tpo === false && opo === false) {
+            setParsing({ ...parsing, arr: ["1+1", "2+1"] })
+        } else setParsing({ ...parsing, arr: [""] })
+    }, [opo, tpo, all]);
 
-        // // 조회방법 파싱
-        let changeView = 0;
-        if(order === "popular") changeView = 0;
-        else if(order === "views") changeView = 1;
-        else if(order === "rating") changeView = 2;
-        // 삼항연산자 적용이 안됨...
-        // order === "popular" ? changeView = 0 : 
-        // order === "views" ? changeView = 1 : 
-        // order === "rating" ? changeView = 2 : 0;
+    useEffect(() => {
+        setParsing({ loading: true })
+        if (order === "popular") setParsing({ ...parsing, page: 0 });
+        else if (order === "views") setParsing({ ...parsing, page: 1 });
+        else if (order === "rating") setParsing({ ...parsing, page: 2 });
+    }, [order]);
 
-        // console.log(`selectBrand : ${selectBrand}, changeCategory : ${changeCategory}, selectSearchData : ${selectSearchData}, arr : ${arr}, changeView : ${changeView}, 1`)
-        dispatch(getSaleAction(selectBrand, changeCategory, selectSearchData, JSON.stringify(arr), changeView, 1));
-    }, [opo, tpo, all, category, order, selectBrand, selectSearchData]);
-    
+    useEffect(() => {
+        setParsing({ ...parsing, loading: true, selectBrand: selectBrand });
+    }, [selectBrand]);
+
+    useEffect(() => {
+        setParsing({ ...parsing, loading: true, selectSearchData: selectSearchData });
+    }, [selectSearchData]);
+
+    useEffect(() => {
+        console.log(parsing.loading);
+        dispatch(getSaleAction(parsing.selectBrand, parsing.changeCategory, parsing.selectSearchData, parsing.arr, parsing.changeView, parsing.page));
+    }, [parsing]);
+
+    useEffect(() => {
+        // console.log('heheheheheheheh : ', parsing);
+    }, [parsing]);
+
     const categoryList = (
         <Menu onClick={onClickCategory}>
             <Menu.Item key="showAll">전체보기</Menu.Item>
@@ -158,7 +166,7 @@ const Event = () => {
                                         <span>카테고리 <DownOutlined /></span>
                                     </Dropdown>
                                 </Col>
-                                <Col xs={3}>    
+                                <Col xs={3}>
                                     <Dropdown overlay={orderList} trigger={['click']}>
                                         <UnorderedListOutlined />
                                     </Dropdown>
@@ -182,29 +190,68 @@ const Event = () => {
 
                 {/* 제품리스트 구역 */}
                 <Row style={{ width: '100%', height: '100%', marginTop: 10 }}>
+
+                    {
+                        selectSaleItem.loading === false ? <p>loading...</p> :
+                            // forEach로 했을때는 안되는데 map으로 하면 된다???
+                            selectSaleItem.data.map((e, index) => {
+                                    return e.map(item => {
+                                        // console.log(item)
+                                        if (item.brand === "CU") {
+                                            return <Col xs={12} md={6}>
+                                                <Link to={`/detailProduct/${item.id}`}>
+                                                    <Cu data={item} />
+                                                </Link>
+                                            </Col>;
+                                        } else if (item.brand === "GS25") {
+                                            return <Col xs={12} md={6}>
+                                                <Link to={`/detailProduct/${item.id}`}>
+                                                    <Gs data={item} />
+                                                </Link>
+                                            </Col>;
+                                        } else {
+                                            return <Col xs={12} md={6}>
+                                                <Link to={`/detailProduct/${item.id}`}>
+                                                    <Seven data={item} />
+                                                </Link>
+                                            </Col>;
+                                        }
+                                    })
+                            })
+                    }
+
                     {/* {
-                    selectSaleItem.loading === false ? <p>loading...</p> :
-                    selectSaleItem[0].map(e => {
-                        if (e.brand === "CU") {
-                            return <Col xs={12} md={6}>
-                                <Link to={`/detailProduct/${e.id}`}>
-                                    <Cu data={e} />
-                                </Link>
-                            </Col>;
-                        } else if (e.brand === "GS25") {
-                            return <Col xs={12} md={6}>
-                                <Link to={`/detailProduct/${e.id}`}>
-                                    <Gs data={e} />
-                                </Link>
-                            </Col>;
-                        } else {
-                            return <Col xs={12} md={6}>
-                                <Link to={`/detailProduct/${e.id}`}>
-                                    <Seven data={e} />
-                                </Link>
-                            </Col>;
-                        }
-                    })} */}
+                        selectSaleItem.loading === false ? <p>loading...</p> :
+                            // forEach로 했을때는 안되는데 map으로 하면 된다???
+                            selectSaleItem.data.map((e, index) => {
+                                if (selectSaleItem.loading !== false && index === 0) return null;
+                                else if (selectSaleItem.loading !== false && index > 0) {
+                                    return e.map(item => {
+                                        // console.log(item)
+                                        if (item.brand === "CU") {
+                                            return <Col xs={12} md={6}>
+                                                <Link to={`/detailProduct/${item.id}`}>
+                                                    <Cu data={item} />
+                                                </Link>
+                                            </Col>;
+                                        } else if (item.brand === "GS25") {
+                                            return <Col xs={12} md={6}>
+                                                <Link to={`/detailProduct/${item.id}`}>
+                                                    <Gs data={item} />
+                                                </Link>
+                                            </Col>;
+                                        } else {
+                                            return <Col xs={12} md={6}>
+                                                <Link to={`/detailProduct/${item.id}`}>
+                                                    <Seven data={item} />
+                                                </Link>
+                                            </Col>;
+                                        }
+                                    })
+                                }
+                            })
+                    } */}
+
                 </Row>
             </Col>
             <Col xs={1} md={5} />

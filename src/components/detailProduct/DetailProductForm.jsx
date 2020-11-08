@@ -32,7 +32,7 @@ const DetailProductForm = () => {
     const history = useHistory();
 
     const login = useSelector((state) => state.user.isLoggedIn);
-    const itemList = useSelector((state) => state.saleItem.data);
+    const selectSaleItem = useSelector((state) => state.saleItem);
     const reply = useSelector((state) => state.viewItem.reply);
     const replyLoading = useSelector((state) => state.viewItem.replyLoading);
     const dispatch = useDispatch();
@@ -49,14 +49,30 @@ const DetailProductForm = () => {
 
         dispatch(viewItem(id));
         dispatch(replyList(id));
-        itemList.map(e => e.id === id ? setState(e) : null);
     }, []);
 
     // useEffect(() => {
-    //     console.log("##############################");
-    //     console.log(reply);
-    //     console.log(replyLoading);
-    // }, [replyLoading === true]);
+    //     selectSaleItem.loading === false ? console.log(null) :
+    //     selectSaleItem.data.map((e, index) => {
+    //         if(selectSaleItem.loading !== false && index === 0) return null;
+    //         else if(selectSaleItem.loading !== false && index > 0){
+    //             return e.map(item => {
+    //                 if(item.id === id) setState(item);
+    //                 else console.log(null);
+    //             })
+    //         }
+    //     })
+    // }, [selectSaleItem]);
+
+    useEffect(() => {
+        selectSaleItem.loading === false ? console.log(null) :
+            selectSaleItem.data.map((e, index) => {
+                return e.map(item => {
+                    if (item.id === id) setState(item);
+                    else console.log(null);
+                })
+            })
+    }, [selectSaleItem]);
 
     return (
         state === null ? <p>loading...</p> :

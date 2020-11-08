@@ -5,6 +5,7 @@ const GET_SALE_ITEM_SUCCESS = "GET_SALE_ITEM_SUCCESS";
 const GET_SALE_ITEM_ERROR = "GET_SALE_ITEM_ERROR";
 
 export const getSaleAction = (brand, category, keyword, type, view, page) => async (dispatch) => {
+  console.log(`brand ${brand}, category ${category}, keyword ${keyword}, type ${type}, view ${view}, page ${page}`)
   const payload = await saleItem(brand, category, keyword, type, view, page);
 
   dispatch({ type: GET_SALE_ITEM });
@@ -49,16 +50,19 @@ export const reducer = (state = initalState, action) => {
       console.log("GET_SALE_ITEM_SUCCESS");
       return {
         ...state,
-        // loading: true,
+        loading: true,
         // map은 새로운 배열을 반환하기 때문에 data에 다시 배열이 들어간다..
-        data: [...state.data, action.payload.data.searchItemList]
+        data: [action.payload.data.searchItemList],
       };
     }
 
-    case GET_SALE_ITEM_ERROR:
+    case GET_SALE_ITEM_ERROR: {
       console.log("GET_SALE_ITEM_ERROR");
-      return state;
-
+      return {
+        ...state,
+        loading: false,
+      };
+    }
     default:
       return state;
   }
