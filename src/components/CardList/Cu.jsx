@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Star from 'react-rating-stars-component';
+// import not_image from '../../../public/image/null_image.png';
 
 import {
     Div_wrap,
@@ -19,6 +20,10 @@ import {
 } from './style/Cu_Styeld';
 
 const Cu = (data) => {
+    useEffect(() => {
+        console.log(data.data.imageURL);
+        // console.log(not_image);
+    }, [data]);
     return (
         <Div_wrap>
             {/* 상단 로고 행사 안내 */}
@@ -35,12 +40,12 @@ const Cu = (data) => {
 
             {/* 제품 */}
             <Content>
-                <ProductImg src={data.data.imageURL} title='store product image' />
+                <ProductImg src={data.data.imageURL !== null ? data.data.imageURL : './image/null_image.png'} title='store product image' />
             </Content>
 
             {/* 제품설명 */}
             <Footer>
-                <FooterTitle>{data.data.title}</FooterTitle>
+                <FooterTitle>{data.data.title}</FooterTitle> 
                 <StarWrap>
                     <Star value={data.data.rating} size={17} isHalf={true} edit={false} />
                 </StarWrap>

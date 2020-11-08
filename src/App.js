@@ -34,7 +34,6 @@ function App() {
       </Route>
 
       <Route exact path='/detailProduct/:id'>
-        {/* <AppLayout /> */}
         <DetailProduct />
       </Route>
     </Switch>

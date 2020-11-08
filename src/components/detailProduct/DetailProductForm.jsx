@@ -31,15 +31,15 @@ const DetailProductForm = () => {
     const { id } = useParams();
     const history = useHistory();
 
-    const login = useSelector((state) => state.user.isLoggedIn);
+    const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+    const userId = useSelector((state) => state.user.User);
     const selectSaleItem = useSelector((state) => state.saleItem);
     const reply = useSelector((state) => state.viewItem.reply);
     const replyLoading = useSelector((state) => state.viewItem.replyLoading);
     const dispatch = useDispatch();
 
     const onClickBack = useCallback(e => {
-        // history.goBack();
-        history.push('/')
+        history.goBack();
     }, []);
 
     // 제품관련 정보 state (제품명, 이미지, 별점 등..)
@@ -65,6 +65,12 @@ const DetailProductForm = () => {
         })
     }, [selectSaleItem]);
 
+    useEffect(() => {
+        console.log("3812904798156419845982473819042");
+        // postman을 통해서 사용자 정보를 확인했지만 사용자 데이터가 없음..
+        console.log(id, userId);
+    }, [id, isLoggedIn])
+
     // useEffect(() => {
     //     selectSaleItem.loading === false ? console.log(null) :
     //         selectSaleItem.data.map((e, index) => {
@@ -85,7 +91,7 @@ const DetailProductForm = () => {
                         뒤로가기 <RollbackOutlined />
                     </BackBtn>
                     <MainImg_wrap>
-                        <MainImg src={state.imageURL} title='store product image' />
+                        <MainImg src={state.imageURL !== null ? state.imageURL : '/image/null_image.png'} title='store product image' />
                     </MainImg_wrap>
                     <Title>{state.title}</Title>
                     <Star value={state.rating} size={20} isHalf={true} edit={false} />
@@ -94,9 +100,9 @@ const DetailProductForm = () => {
                     <Comment_wrap>
                         {/* 댓글작성 폼 래핑 */}
                         {
-                            login &&
+                            isLoggedIn &&
                             <WriteComment_wrap>
-                                <WriteComment />
+                                <WriteComment saleItemId={id} userId={userId} />
                             </WriteComment_wrap>
                         }
 

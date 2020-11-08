@@ -5,7 +5,9 @@ const REPLY_SEND_SUCCESS = 'REPLY_SEND_SUCCESS';
 const REPLY_SEND_ERROR = 'REPLY_SEND_ERROR';
 
 export const replyAction = (userId, saleItemId, rating, comment) => async (dispatch) => {
-    const payload = await replyApi(userId, saleItemId, rating, comment);
+    console.log(`userId ${userId}, saleItemId ${saleItemId}, rating ${rating}, comment ${comment}`)
+    // const payload = await replyApi(userId, saleItemId, rating, comment);
+    const payload = null;
 
     dispatch({ type: REPLY_SEND });
     try {
@@ -36,6 +38,6 @@ export const reducer = (state = initialState, action) => {
         }
         default: return { ...state}
     }
-}; 
+};  
 
 export default reducer;

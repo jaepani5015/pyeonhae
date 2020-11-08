@@ -96,8 +96,6 @@ export const reducer = (state = initialState, action) => {
             };
         // 유저 로그인 성공
         case GET_USER_LOGIN_SUCCESS:
-            // const wl = action.payload.data.wishList[0] !== null ?
-            //     action.payload.data.wishList.map(staet => (staet)) : null;
             return {
                 ...state,
                 loading: true,
