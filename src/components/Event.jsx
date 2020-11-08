@@ -10,7 +10,7 @@ import { Row, Col, Menu, Dropdown } from 'antd';
 import { UnorderedListOutlined, DownOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getSaleAction } from '../modules/saleItem';
+import { getSaleAction, resetSaleItem } from '../modules/saleItem';
 
 import { Span } from './style/Event_Styled';
 
@@ -71,10 +71,10 @@ const Event = () => {
         selectBrand: selectBrand,
         changeCategory: "",
         selectSearchData: selectSearchData,
-        arr: ["1+1","2+1"],
+        arr: ["1+1", "2+1"],
         changeView: 0,
         page: 1
-    })
+    });
 
     // 첫 화면 로딩시 출력할 제품리스트 dispatchs
     useEffect(() => {
@@ -86,6 +86,7 @@ const Event = () => {
         else if (category === "icecream") { setParsing({ ...parsing, changeCategory: "아이스크림" }) }
         else if (category === "suplies") { setParsing({ ...parsing, changeCategory: "생활용품" }) }
         else { setParsing({ ...parsing, changeCategory: "" }) }
+        dispatch(resetSaleItem());
     }, [category]);
 
     useEffect(() => {
@@ -97,6 +98,7 @@ const Event = () => {
         } else if (all === true && tpo === false && opo === false) {
             setParsing({ ...parsing, arr: ["1+1", "2+1"] })
         } else setParsing({ ...parsing, arr: [""] })
+        dispatch(resetSaleItem());
     }, [opo, tpo, all]);
 
     useEffect(() => {
@@ -104,23 +106,21 @@ const Event = () => {
         if (order === "popular") setParsing({ ...parsing, page: 0 });
         else if (order === "views") setParsing({ ...parsing, page: 1 });
         else if (order === "rating") setParsing({ ...parsing, page: 2 });
+        dispatch(resetSaleItem());
     }, [order]);
 
     useEffect(() => {
         setParsing({ ...parsing, loading: true, selectBrand: selectBrand });
+        dispatch(resetSaleItem());
     }, [selectBrand]);
 
     useEffect(() => {
         setParsing({ ...parsing, loading: true, selectSearchData: selectSearchData });
+        dispatch(resetSaleItem());
     }, [selectSearchData]);
 
     useEffect(() => {
-        console.log(parsing.loading);
         dispatch(getSaleAction(parsing.selectBrand, parsing.changeCategory, parsing.selectSearchData, parsing.arr, parsing.changeView, parsing.page));
-    }, [parsing]);
-
-    useEffect(() => {
-        // console.log('heheheheheheheh : ', parsing);
     }, [parsing]);
 
     const categoryList = (
@@ -141,6 +141,25 @@ const Event = () => {
             <Menu.Item key="rating">평점순</Menu.Item>
         </Menu>
     );
+
+    const handleScroll = () => {
+        const scrollHeight = document.documentElement.scrollHeight;
+        const scrollTop = document.documentElement.scrollTop;
+        const clientHeight = document.documentElement.clientHeight;
+        if (scrollTop + clientHeight >= scrollHeight) {
+            // 페이지 끝에 도달하면 추가 데이터를 받아온다
+            setParsing({ ...parsing, page: parsing.page + 1 })
+        }
+    };
+
+    useEffect(() => {
+        // scroll event listener 등록
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            // scroll event listener 해제
+            window.removeEventListener("scroll", handleScroll);
+        };
+    });
 
     return (
         // home, 기준잡기
@@ -191,7 +210,7 @@ const Event = () => {
                 {/* 제품리스트 구역 */}
                 <Row style={{ width: '100%', height: '100%', marginTop: 10 }}>
 
-                    {
+                    {/* {
                         selectSaleItem.loading === false ? <p>loading...</p> :
                             // forEach로 했을때는 안되는데 map으로 하면 된다???
                             selectSaleItem.data.map((e, index) => {
@@ -218,9 +237,9 @@ const Event = () => {
                                         }
                                     })
                             })
-                    }
+                    } */}
 
-                    {/* {
+                    {
                         selectSaleItem.loading === false ? <p>loading...</p> :
                             // forEach로 했을때는 안되는데 map으로 하면 된다???
                             selectSaleItem.data.map((e, index) => {
@@ -250,7 +269,7 @@ const Event = () => {
                                     })
                                 }
                             })
-                    } */}
+                    }
 
                 </Row>
             </Col>

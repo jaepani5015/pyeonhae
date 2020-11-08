@@ -5,6 +5,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutAction } from "../modules/user";
 import { inputBrandName, inputSearchValue } from '../modules/brand';
+import { resetSaleItem } from '../modules/saleItem';
 
 import useWindowSize from "../hooks/useWindowSize";
 import Barcode from "react-barcode";
@@ -33,7 +34,6 @@ import {
   Span,
   InputSearch
 } from "./style/AppLayout_Styeld";
-// import Seven from "./cardList/Seven";
 
 const AppLayout = () => {
   const selectLogin = useSelector((state) => state.user.isLoggedIn);
@@ -124,6 +124,8 @@ const AppLayout = () => {
     else if(cu === true && gs25 === false && _7eleven === true) setChangeBrand("CU SEVEN_ELEVEN");
 
     else if(cu === true && gs25 === true && _7eleven === true) setChangeBrand("CU GS25 SEVEN-ELEVEN");
+
+    dispatch(resetSaleItem());
   }, [cu, gs25, _7eleven]);
 
   // 브랜드 선택 dispatch

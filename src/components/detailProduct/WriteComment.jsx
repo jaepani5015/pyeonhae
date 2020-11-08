@@ -10,21 +10,28 @@ const WriteComment = () => {
 
     const onClickSubmit = useCallback(e => {
         e.preventDefault();
+        console.log(e.target.value);
     }, []);
 
     const onChangeComment = useCallback(e => {
+        console.log("12321321321");
         setComment(e.target.value);
-    }, [comment]);
+    }, []);
 
     useEffect(() => {
         console.log('useEffect: ', comment);
     }, [comment])
 
+    useEffect(() => {
+        console.log('fhjsdfjskldfjsdlkfsdf');
+    },[])
+
     return(
-        <form>
-            <TextArea onChange={onChangeComment} />
+        <>
+            {/* <TextArea onChange={onChangeComment} /> */}
+            <TextArea onChange={console.log('hohohoohoho')} />
             <InputBtn type='button' value="댓글등록" onClick={onClickSubmit} />
-        </form>
+        </>
     );
 }
 

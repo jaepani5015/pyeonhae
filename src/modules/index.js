@@ -5,6 +5,7 @@ import userReg from './userReg';
 import saleItem from './saleItem';
 import viewItem from './viewItem';
 import brand from './brand';
+import reply from './reply';
 
 const rootReducer = combineReducers({
     user,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     saleItem,
     viewItem,
     brand,
+    reply,
 });
 
 export default rootReducer;

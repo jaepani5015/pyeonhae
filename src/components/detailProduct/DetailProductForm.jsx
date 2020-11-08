@@ -38,7 +38,8 @@ const DetailProductForm = () => {
     const dispatch = useDispatch();
 
     const onClickBack = useCallback(e => {
-        history.goBack();
+        // history.goBack();
+        history.push('/')
     }, []);
 
     // 제품관련 정보 state (제품명, 이미지, 별점 등..)
@@ -51,28 +52,28 @@ const DetailProductForm = () => {
         dispatch(replyList(id));
     }, []);
 
-    // useEffect(() => {
-    //     selectSaleItem.loading === false ? console.log(null) :
-    //     selectSaleItem.data.map((e, index) => {
-    //         if(selectSaleItem.loading !== false && index === 0) return null;
-    //         else if(selectSaleItem.loading !== false && index > 0){
-    //             return e.map(item => {
-    //                 if(item.id === id) setState(item);
-    //                 else console.log(null);
-    //             })
-    //         }
-    //     })
-    // }, [selectSaleItem]);
-
     useEffect(() => {
         selectSaleItem.loading === false ? console.log(null) :
-            selectSaleItem.data.map((e, index) => {
+        selectSaleItem.data.map((e, index) => {
+            if(selectSaleItem.loading !== false && index === 0) return null;
+            else if(selectSaleItem.loading !== false && index > 0){
                 return e.map(item => {
-                    if (item.id === id) setState(item);
+                    if(item.id === id) setState(item);
                     else console.log(null);
                 })
-            })
+            }
+        })
     }, [selectSaleItem]);
+
+    // useEffect(() => {
+    //     selectSaleItem.loading === false ? console.log(null) :
+    //         selectSaleItem.data.map((e, index) => {
+    //             return e.map(item => {
+    //                 if (item.id === id) setState(item);
+    //                 else console.log(null);
+    //             })
+    //         })
+    // }, [selectSaleItem]);
 
     return (
         state === null ? <p>loading...</p> :
