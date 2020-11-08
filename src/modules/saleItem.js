@@ -7,7 +7,6 @@ const GET_SALE_ITEM_ERROR = "GET_SALE_ITEM_ERROR";
 const RESET_ITEM = 'RESET_ITEM';
 
 export const getSaleAction = (brand, category, keyword, type, view, page) => async (dispatch) => {
-  console.log(`brand ${brand}, category ${category}, keyword ${keyword}, type ${type}, view ${view}, page ${page}`)
   const payload = await saleItem(brand, category, keyword, type, view, page);
 
   dispatch({ type: GET_SALE_ITEM });

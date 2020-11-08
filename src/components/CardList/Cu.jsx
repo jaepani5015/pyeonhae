@@ -20,10 +20,6 @@ import {
 } from './style/Cu_Styeld';
 
 const Cu = (data) => {
-    useEffect(() => {
-        console.log(data.data.imageURL);
-        // console.log(not_image);
-    }, [data]);
     return (
         <Div_wrap>
             {/* 상단 로고 행사 안내 */}

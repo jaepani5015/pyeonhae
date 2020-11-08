@@ -34,7 +34,8 @@ const LoginForm = () => {
             <Col xs={1} md={7}/>
             <Col xs={22} md={8}>
                 <Title>
-                    <Link to='/' style={{ color: '#000000' }}>편해</Link>
+                    {/* <Link to='/' style={{ color: '#000000' }}>편해</Link> */}
+                    <Link to='/'><img src="./image/login_image.png" style={{ width: 300, height: "auto" }} alt="로그인페이지 이미지" /></Link>
                 </Title>
                 <SubTitle>편의점을 해석하다</SubTitle>
                 <Form

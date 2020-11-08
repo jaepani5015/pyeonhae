@@ -166,8 +166,8 @@ const AppLayout = () => {
             }}
           >
             <Link style={{ color: "black" }} to="/">
-              <Span_Title>편해</Span_Title>
-              {/* <img src='./image/mainLogo.jpeg' width='50px' height='auto'/> */}
+              {/* <Span_Title>편해</Span_Title> */}
+              <img src='./image/logo.png' width='80px' height='auto'/>
             </Link>
           </Col>
           {/* 제품검색부분 */}
@@ -175,6 +175,7 @@ const AppLayout = () => {
             <InputSearch
               onSearch={() => console.log(searchProduct)}
               onChange={(e) => setSearchProduct(e.target.value)}
+              placeholder="찾으시는 상품이 있으신가요?"
               size={size.width}
             />
           </Col>

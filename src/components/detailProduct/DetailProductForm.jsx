@@ -53,33 +53,22 @@ const DetailProductForm = () => {
     }, []);
 
     useEffect(() => {
-        selectSaleItem.loading === false ? console.log(null) :
+        selectSaleItem.loading === false ? console.log() :
         selectSaleItem.data.map((e, index) => {
             if(selectSaleItem.loading !== false && index === 0) return null;
             else if(selectSaleItem.loading !== false && index > 0){
                 return e.map(item => {
                     if(item.id === id) setState(item);
-                    else console.log(null);
+                    else console.log();
                 })
             }
         })
     }, [selectSaleItem]);
 
     useEffect(() => {
-        console.log("3812904798156419845982473819042");
         // postman을 통해서 사용자 정보를 확인했지만 사용자 데이터가 없음..
         console.log(id, userId);
-    }, [id, isLoggedIn])
-
-    // useEffect(() => {
-    //     selectSaleItem.loading === false ? console.log(null) :
-    //         selectSaleItem.data.map((e, index) => {
-    //             return e.map(item => {
-    //                 if (item.id === id) setState(item);
-    //                 else console.log(null);
-    //             })
-    //         })
-    // }, [selectSaleItem]);
+    }, [id, isLoggedIn]);
 
     return (
         state === null ? <p>loading...</p> :

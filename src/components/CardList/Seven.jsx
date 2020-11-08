@@ -35,7 +35,7 @@ const Seven = (data) => {
 
             {/* 제품 */}
             <Content>
-                <ProductImg src={data.data.imageURL} title='store product image' />
+            <ProductImg src={data.data.imageURL !== null ? data.data.imageURL : './image/null_image.png'} title='store product image' />
             </Content>
 
             {/* 제품설명 */}
