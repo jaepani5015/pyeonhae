@@ -22,16 +22,20 @@ export const initialState = {
 export const reducer = (state = initialState, action) => {
     switch(action.type){
         case REPLY_SEND:{
-
+            console.log("reply send");
+            return { ...state }
         }
         case REPLY_SEND_SUCCESS:{
-            
+            console.log("reply send success");
+            console.log(action.payload);
+            return { ...state }
         }
         case REPLY_SEND_ERROR:{
-
+            console.log("reply send error");
+            return { ...state }
         }
         default: return { ...state}
     }
-};
+}; 
 
 export default reducer;
