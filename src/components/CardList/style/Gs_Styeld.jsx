@@ -72,16 +72,16 @@ export const Content = styled.div`
 `;
 
 export const ProductImg = styled.img`
-    width: 90px;
+    width: 126px;
     height: auto;
     position: relative;
-    left: 55px;
+    left: 35px;
     top: 30px;
 
     @media only screen and (max-width: 768px) {
-        width: 80px;
-        left: 45px;
-        top: 40px;
+        width: 105px;
+        left: 30px;
+        top: 25px;
     }
 `;
 export const Footer = styled.div`

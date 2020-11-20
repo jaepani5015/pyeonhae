@@ -14,8 +14,11 @@ const GET_USER_DELETE_ERROR = 'GET_USER_DELETE_ERROR';
 // redux-thunk 함수생성
 // login
 export const loginAction = (email, password) => async dispatch => {
-    console.log('get user dispatch');
+    console.log('loginAction get data', email, password);
     const payload = await userLogin(email, password);
+
+    console.log('loginAction!!!');
+    console.log(payload.data);
 
     dispatch({ type: GET_USER_LOGIN });
     try {
