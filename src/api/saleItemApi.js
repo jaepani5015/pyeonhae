@@ -1,9 +1,11 @@
 import axios from "axios";
 
+axios.defaults.baseURL = process.env.REACT_APP_URL_BACK;
+
 export const saleItem = (brand, category, keyword, type, view, page) => {
   const res = axios({
     method: "post",
-    url: "http://3.34.200.65/sale-items",
+    url: "/sale-items",
     data: {
       brand: brand,
       category: category,

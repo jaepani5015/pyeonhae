@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+axios.defaults.baseURL = process.env.REACT_APP_URL_BACK;
+
 export const userLogin = (email, password) => {
     console.log('userlogin get data', email, password);
     const res = axios({
@@ -7,7 +9,7 @@ export const userLogin = (email, password) => {
         headers: {
             "Content-Type" : "application/json"
         },
-        url: 'http://3.34.200.65/login',
+        url: '/login',
         data: {
             "email": email,
             "password": password,
@@ -20,7 +22,7 @@ export const userLogin = (email, password) => {
 export const userDeleteApi = (id) => {
     const res = axios({
         method: 'post',
-        url: 'http://3.34.200.65/deleteUser',
+        url: '/deleteUser',
         data: {
             "id": id
         }

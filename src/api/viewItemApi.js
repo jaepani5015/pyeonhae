@@ -1,9 +1,11 @@
 import axios from 'axios';
 
+axios.defaults.baseURL = process.env.REACT_APP_URL_BACK;
+
 export const viewItemApi = (id) => {
     const res = axios({
         method: 'get',
-        url: `http://3.34.200.65/viewItem/${id}`,
+        url: `/viewItem/${id}`,
     });
     return res;
 }
@@ -11,7 +13,7 @@ export const viewItemApi = (id) => {
 export const replyListApi = (saleItemID) => {
     const res = axios({
         method: 'post',
-        url: 'http://3.34.200.65/replyList',
+        url: '/replyList',
         data: {
             'saleItemId': saleItemID
         }

@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 
 import { Col, Row, Input } from "antd";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutAction } from "../modules/user";
 import { inputBrandName, inputSearchValue } from '../modules/brand';

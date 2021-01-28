@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
 
-import Cu from './cardList/Cu';
-import Gs from './cardList/Gs';
-import Seven from './cardList/Seven';
+import Cu from './CardList/Cu';
+import Gs from './CardList/Gs';
+import Seven from './CardList/Seven';
 
 import useWindowSize from '../hooks/useWindowSize';
 

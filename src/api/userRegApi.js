@@ -1,9 +1,11 @@
 import axios from 'axios';
 
+axios.defaults.baseURL = process.env.REACT_APP_URL_BACK;
+
 export const nickNameCheckApi = (nickName) => {
     const res = axios({
         method: 'post',
-        url: 'http://3.34.200.65/nickNameCheck',
+        url: '/nickNameCheck',
         data: {
             "nickName": nickName
         }
@@ -14,7 +16,7 @@ export const nickNameCheckApi = (nickName) => {
 export const emailCheckApi = (email) => {
     const res = axios({
         method: 'post',
-        url: 'http://3.34.200.65/emailCheck',
+        url: '/emailCheck',
         data: {
             "email": email
         }
